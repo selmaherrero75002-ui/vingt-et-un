@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Vingt et Un — le podcast qui explore les choix, les doutes et les chemins de la vingtaine." />
+  <meta property="og:title" content="Vingt et Un — Le podcast" />
+  <meta property="og:description" content="Des conversations sincères sur la vingtaine, les choix et les parcours." />
+  <meta property="og:type" content="website" />
+  <title>Vingt et Un — Le podcast</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Nouvelle présentation éditoriale des épisodes */
+    .episodes-section.editorial-episodes {
+      padding: clamp(80px, 10vw, 150px) 5%;
+      background: #fffef3;
+    }
+
+    .editorial-episodes__intro {
+      max-width: 820px;
+      margin: 0 auto clamp(52px, 7vw, 90px);
+      text-align: center;
+    }
+
+    .editorial-episodes__intro::before,
+    .editorial-episodes__intro::after {
+      content: "";
+      display: block;
+      width: 100%;
+      height: 1px;
+      background: rgba(20, 20, 20, .18);
+    }
+
+    .editorial-episodes__intro::before { margin-bottom: 46px; }
+    .editorial-episodes__intro::after { margin-top: 46px; }
+
+    .editorial-episodes__intro h2 {
+      margin: 0;
+      font-family: "Montserrat", Arial, sans-serif;
+      font-size: clamp(2.3rem, 6vw, 5.4rem);
+      font-weight: 900;
+      line-height: .95;
+      letter-spacing: -.055em;
+      text-transform: uppercase;
+    }
+
+    .editorial-episodes__intro p {
+      max-width: 590px;
+      margin: 24px auto 0;
+      font-size: clamp(1rem, 1.5vw, 1.2rem);
+      line-height: 1.65;
+    }
+
+    .editorial-episodes__grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: clamp(22px, 2.8vw, 42px);
+      max-width: 1440px;
+      margin: 0 auto;
+      align-items: start;
+    }
+
+    .editorial-card {
+      overflow: hidden;
+      border: 1px solid rgba(20, 20, 20, .08);
+      border-radius: 24px;
+      background: #fffef3;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, .05);
+      transition: transform .35s ease, box-shadow .35s ease;
+    }
+
+    .editorial-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 55px rgba(0, 0, 0, .09);
+    }
+
+    .editorial-card__media.episode-image {
+      position: relative;
+      width: 100%;
+      min-height: 0;
+      aspect-ratio: 4 / 5;
+      overflow: hidden;
+      border-radius: 0;
+      background-position: center;
+      background-size: cover;
+      transition: transform .5s ease;
+    }
+
+    .editorial-card:hover .editorial-card__media {
+      transform: scale(1.02);
+    }
+
+    .editorial-card__number {
+      position: absolute;
+      top: 22px;
+      right: 22px;
+      display: grid;
+      width: 48px;
+      height: 48px;
+      place-items: center;
+      border-radius: 50%;
+      background: #fffef3;
+      color: #151515;
+      font-family: "Montserrat", Arial, sans-serif;
+      font-size: .78rem;
+      font-weight: 900;
+    }
+
+    .editorial-card__body {
+      padding: clamp(27px, 3vw, 42px);
+    }
+
+    .editorial-card__name {
+      margin: 0;
+      font-family: "Montserrat", Arial, sans-serif;
+      font-size: clamp(1.5rem, 2.1vw, 2.15rem);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -.035em;
+    }
+
+    .editorial-card__role {
+      margin: 9px 0 28px;
+      color: #d8662e;
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .11em;
+      text-transform: uppercase;
+    }
+
+    .editorial-card__title {
+      margin: 0 0 20px;
+      font-family: "Montserrat", Arial, sans-serif;
+      font-size: clamp(1.25rem, 1.7vw, 1.65rem);
+      font-weight: 800;
+      line-height: 1.18;
+      letter-spacing: -.025em;
+    }
+
+    .editorial-card__description {
+      margin: 0;
+      font-size: .98rem;
+      line-height: 1.7;
+    }
+
+    .editorial-card details {
+      margin-top: 12px;
+    }
+
+    .editorial-card summary {
+      width: fit-content;
+      margin: 18px auto 0;
+      padding: 7px 4px;
+      color: #d8662e;
+      cursor: pointer;
+      font-size: .88rem;
+      font-weight: 700;
+      list-style: none;
+    }
+
+    .editorial-card summary::-webkit-details-marker { display: none; }
+    .editorial-card summary::after { content: " ↓"; }
+    .editorial-card details[open] summary::after { content: " ↑"; }
+    .editorial-card details[open] summary .show-more { display: none; }
+    .editorial-card details:not([open]) summary .show-less { display: none; }
+
+    .editorial-card__more {
+      margin: 16px 0 0;
+      font-size: .98rem;
+      line-height: 1.7;
+    }
+
+    .editorial-card__footer {
+      margin-top: 28px;
+      padding-top: 25px;
+      border-top: 1px solid rgba(20, 20, 20, .16);
+      text-align: center;
+    }
+
+    .editorial-card__listen {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 54px;
+      border-radius: 999px;
+      background: #151515;
+      color: #fffef3;
+      font-weight: 700;
+      text-decoration: none;
+      transition: background .25s ease, color .25s ease;
+    }
+
+    .editorial-card__listen:hover {
+      background: #e36d32;
+      color: #fff;
+    }
+
+    .editorial-card__platforms {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px 16px;
+      margin-top: 18px;
+      font-size: .78rem;
+      font-weight: 600;
+    }
+
+    .editorial-card__platforms a {
+      color: #151515;
+      text-decoration: none;
+    }
+
+    .editorial-card__platforms a:hover { color: #d8662e; }
+
+    @media (max-width: 980px) {
+      .editorial-episodes__grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 660px) {
+      .episodes-section.editorial-episodes { padding-inline: 18px; }
+      .editorial-episodes__grid { grid-template-columns: 1fr; }
+      .editorial-card { border-radius: 20px; }
+      .editorial-card__body { padding: 28px 24px 30px; }
+      .editorial-episodes__intro::before { margin-bottom: 30px; }
+      .editorial-episodes__intro::after { margin-top: 30px; }
+    }
+
+    /* Présentation de l'équipe directement sur la photo */
+    .team-section.team-section--photo {
+      padding: clamp(70px, 9vw, 130px) 5%;
+      background: #fffef3;
+    }
+
+    .team-visual {
+      position: relative;
+      min-height: clamp(650px, 68vw, 900px);
+      max-width: 1440px;
+      margin: 0 auto;
+      overflow: hidden;
+      border-radius: 24px;
+      background: #16353c;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, .06);
+    }
+
+    .team-visual::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background:
+        linear-gradient(90deg, rgba(4, 14, 18, .82) 0%, rgba(4, 14, 18, .62) 43%, rgba(4, 14, 18, .12) 78%),
+        linear-gradient(0deg, rgba(4, 14, 18, .42) 0%, transparent 48%);
+      pointer-events: none;
+    }
+
+    .team-visual__photo {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .team-visual__content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      min-height: inherit;
+      max-width: 760px;
+      padding: clamp(40px, 6vw, 88px);
+      flex-direction: column;
+      justify-content: center;
+      color: #fffef3;
+    }
+
+    .team-visual__content .eyebrow {
+      margin: 0 0 22px;
+      color: #ff8a4c;
+    }
+
+    .team-visual__content h2 {
+      max-width: 700px;
+      margin: 0 0 clamp(30px, 4vw, 54px);
+      color: #fffef3;
+      font-family: "Montserrat", Arial, sans-serif;
+      font-size: clamp(3rem, 7.5vw, 7.4rem);
+      font-weight: 900;
+      line-height: .88;
+      letter-spacing: -.065em;
+    }
+
+    .team-visual__text {
+      max-width: 670px;
+      font-size: clamp(1rem, 1.45vw, 1.22rem);
+      font-weight: 600;
+      line-height: 1.65;
+    }
+
+    .team-visual__text p { margin: 0; }
+    .team-visual__text p + p { margin-top: 24px; }
+
+    @media (max-width: 760px) {
+      .team-section.team-section--photo { padding-inline: 18px; }
+
+      .team-visual {
+        min-height: 760px;
+        border-radius: 20px;
+      }
+
+      .team-visual::after {
+        background:
+          linear-gradient(0deg, rgba(4, 14, 18, .91) 0%, rgba(4, 14, 18, .68) 58%, rgba(4, 14, 18, .18) 100%);
+      }
+
+      .team-visual__photo { object-position: 59% center; }
+
+      .team-visual__content {
+        justify-content: flex-end;
+        padding: 34px 26px 40px;
+      }
+
+      .team-visual__content h2 {
+        margin-bottom: 28px;
+        font-size: clamp(2.7rem, 15vw, 4.8rem);
+      }
+
+      .team-visual__text {
+        font-size: .96rem;
+        line-height: 1.55;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="top-line"></div>
+
+  <header class="site-header">
+   <a href="#accueil" class="brand" aria-label="Accueil Vingt et Un">
+<img src="logo-footer.png" alt="Logo Vingt et Un" class="brand-logo"></a>
+
+    <button class="menu-button" type="button" aria-expanded="false" aria-controls="main-nav">
+      <span></span><span></span><span></span>
+      <span class="sr-only">Ouvrir le menu</span>
+    </button>
+
+    <nav id="main-nav" class="main-nav">
+      <a href="#episodes">Épisodes</a>
+      <a href="#apropos">À propos</a>
+      <a href="#suivre">Nous suivre</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="accueil" class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">LE PODCAST DE LA VINGTAINE</p>
+       <h1 class="new-hero-title">
+  Vingt et Un,<br>
+  <span>un podcast qui prend 21 ans pour comprendre des choix de vie.</span>
+</h1>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#episodes">Découvrir les épisodes</a>
+          <a class="button button-secondary" href="#plateformes">Écouter le podcast</a>
+        </div>
+      </div>
+
+      <div class="hero-art" aria-label="Illustration du podcast Vingt et Un">
+        <img src="logo.png" alt="Logo Vingt et Un" class="hero-main-logo">
+        <div class="orbit orbit-one"></div>
+      </div>
+    </section>
+
+    <section id="plateformes" class="listen-section">
+      <div class="section-heading centered">
+        <p class="eyebrow">ÉCOUTER LE PODCAST</p>
+        <h2>Choisis ta plateforme</h2>
+      </div>
+
+      <div class="platform-grid">
+        <a class="platform-card" href="https://open.spotify.com/show/033HXngvf0fcM9TeI7miMQ" target="_blank" rel="noopener noreferrer">
+          <span class="platform-icon spotify">●</span>
+          <span>
+            <small>Écouter sur</small>
+            <strong>Spotify</strong>
+          </span>
+          <span class="arrow">→</span>
+        </a>
+
+        <a class="platform-card" href="#plateformes" aria-label="Apple Podcasts — lien à ajouter">
+          <span class="platform-icon apple">◉</span>
+          <span>
+            <small>Écouter sur</small>
+            <strong>Apple Podcasts</strong>
+          </span>
+          <span class="arrow">→</span>
+        </a>
+
+        <a class="platform-card" href="https://deezer.com/show/1003405302" target="_blank" rel="noopener noreferrer">
+          <span class="platform-icon deezer">≋</span>
+          <span>
+            <small>Écouter sur</small>
+            <strong>Deezer</strong>
+          </span>
+          <span class="arrow">→</span>
+        </a>
+
+        <a
+  class="platform-card"
+  href="https://www.instagram.com/vingtetun_podcast"
+  target="_blank"
+  rel="noopener"
+>
+  <span class="platform-icon instagram">◎</span>
+  <span>
+    <small>Nous suivre sur</small>
+    <strong>Instagram</strong>
+  </span>
+  <span class="arrow">→</span>
+</a>
+
+<a
+  class="platform-card"
+  href="https://tiktok.com/embed/7659835369017625888"
+  target="_blank"
+  rel="noopener"
+>
+  <span class="platform-icon tiktok">♪</span>
+  <span>
+    <small>Nous suivre sur</small>
+    <strong>TikTok</strong>
+  </span>
+  <span class="arrow">→</span>
+</a>
+      </div>
+    </section>
+
+    <section id="episodes" class="episodes-section editorial-episodes">
+      <header class="editorial-episodes__intro">
+        <h2>Les épisodes</h2>
+        <p>Découvrez nos épisodes sur toutes les plateformes de streaming</p>
+      </header>
+
+      <div class="editorial-episodes__grid">
+        <article class="editorial-card">
+          <div class="episode-image episode-three editorial-card__media" role="img" aria-label="Maxime Lagarde">
+            <span class="editorial-card__number">01</span>
+          </div>
+          <div class="editorial-card__body">
+            <h3 class="editorial-card__name">Maxime Lagarde</h3>
+            <p class="editorial-card__role">Grand maître international d’échecs</p>
+            <p class="editorial-card__description">
+              Après cinq années d’études en finance, Maxime a choisi d’écouter
+              son rêve et de se lancer dans une carrière de joueur professionnel d’échecs.
+            </p>
+            <details>
+              <summary>
+                <span class="show-more">Afficher plus</span>
+                <span class="show-less">Afficher moins</span>
+              </summary>
+              <p class="editorial-card__more">
+                Champion de France, il revient sur ses débuts, la discipline,
+                la compétition et le moment où il a osé croire qu’une carrière
+                professionnelle était possible. Il nous plonge aussi dans les
+                enjeux et l’évolution du monde des échecs.
+              </p>
+            </details>
+            <footer class="editorial-card__footer">
+              <a class="editorial-card__listen" href="https://open.spotify.com/episode/1F1vHMTVCTo8b9GQ6CMi9Z" target="_blank" rel="noopener noreferrer">
+                → Écouter l’épisode
+              </a>
+              <nav class="editorial-card__platforms" aria-label="Écouter l’épisode de Maxime Lagarde">
+                <a href="https://open.spotify.com/episode/1F1vHMTVCTo8b9GQ6CMi9Z" target="_blank" rel="noopener noreferrer">Spotify</a>
+                <a href="#plateformes">Apple Podcasts</a>
+                <a href="https://deezer.com/show/1003405302" target="_blank" rel="noopener noreferrer">Deezer</a>
+              </nav>
+            </footer>
+          </div>
+        </article>
+
+        <article class="editorial-card">
+          <div class="episode-image episode-two editorial-card__media" role="img" aria-label="Camille Lorillon">
+            <span class="editorial-card__number">02</span>
+          </div>
+          <div class="editorial-card__body">
+            <h3 class="editorial-card__name">Camille Lorillon</h3>
+            <p class="editorial-card__role">Productrice · UGC</p>
+            <p class="editorial-card__description">
+              À 21 ans, Camille ne connaissait même pas le métier de productrice,
+              mais poursuivait déjà la même quête qu’aujourd’hui&nbsp;: trouver
+              un endroit où elle se sentirait heureuse, sans jamais s’ennuyer.
+            </p>
+            <details>
+              <summary>
+                <span class="show-more">Afficher plus</span>
+                <span class="show-less">Afficher moins</span>
+              </summary>
+              <p class="editorial-card__more">
+                Cette année, elle produit son premier film,
+                <em>Ceux qui comptent</em>. Elle nous fait découvrir le rôle
+                essentiel du producteur, à la croisée de la création et du
+                business, et raconte comment donner aux auteurs la légitimité
+                nécessaire pour croire en leurs projets.
+              </p>
+            </details>
+            <footer class="editorial-card__footer">
+              <a class="editorial-card__listen" href="#plateformes">→ Écouter l’épisode</a>
+              <nav class="editorial-card__platforms" aria-label="Écouter l’épisode de Camille Lorillon">
+                <a href="https://open.spotify.com/show/033HXngvf0fcM9TeI7miMQ" target="_blank" rel="noopener noreferrer">Spotify</a>
+                <a href="#plateformes">Apple Podcasts</a>
+                <a href="https://deezer.com/show/1003405302" target="_blank" rel="noopener noreferrer">Deezer</a>
+              </nav>
+            </footer>
+          </div>
+        </article>
+
+        <article class="editorial-card">
+          <div class="episode-image episode-one editorial-card__media" role="img" aria-label="Jérôme Delafosse">
+            <span class="editorial-card__number">03</span>
+          </div>
+          <div class="editorial-card__body">
+            <h3 class="editorial-card__name">Jérôme Delafosse</h3>
+            <p class="editorial-card__role">Aventurier · Explorateur · Réalisateur</p>
+            <p class="editorial-card__description">
+              Parmi les plus jeunes scaphandriers de France, Jérôme a choisi
+              de mettre l’aventure au service de l’exploration et de la
+              préservation du vivant.
+            </p>
+            <details>
+              <summary>
+                <span class="show-more">Afficher plus</span>
+                <span class="show-less">Afficher moins</span>
+              </summary>
+              <p class="editorial-card__more">
+                À travers des documentaires tournés aux quatre coins du monde,
+                il raconte son engagement pour la biodiversité, les doutes qui
+                jalonnent une vie, le goût du risque, les choix qui l’ont
+                construit et les leçons qu’il en a tirées.
+              </p>
+            </details>
+            <footer class="editorial-card__footer">
+              <a class="editorial-card__listen" href="#plateformes">→ Écouter l’épisode</a>
+              <nav class="editorial-card__platforms" aria-label="Écouter l’épisode de Jérôme Delafosse">
+                <a href="https://open.spotify.com/show/033HXngvf0fcM9TeI7miMQ" target="_blank" rel="noopener noreferrer">Spotify</a>
+                <a href="#plateformes">Apple Podcasts</a>
+                <a href="https://deezer.com/show/1003405302" target="_blank" rel="noopener noreferrer">Deezer</a>
+              </nav>
+            </footer>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="apropos" class="about-section">
+      <div class="about-card">
+        <div class="about-number">
+  <img src="logo-footer.png" alt="Logo Vingt et Un" class="about-logo">
+</div>
+        <div class="about-copy">
+          <p class="eyebrow">À PROPOS</p>
+          <h2>La vingtaine n’est pas une ligne droite.</h2>
+          <p>
+            <strong>Vingt et Un</strong> est un média et un podcast consacré à cette période
+            étrange où l’on nous répète que tout est possible — alors que chaque choix paraît décisif.
+          </p>
+          <p>
+            Ici, les invités racontent leurs détours, leurs hésitations et les rencontres
+            qui ont changé leur trajectoire. Pas de recette magique, juste des histoires vraies.
+          </p>
+        </div>
+      </div>
+    </section>
+    <section id="equipe" class="team-section team-section--photo">
+      <div class="team-visual">
+        <img
+          src="a-propos.jpg"
+          alt="Les deux fondatrices de Vingt et Un au bord de la mer"
+          class="team-visual__photo"
+        >
+        <div class="team-visual__content">
+          <p class="eyebrow">QUI SOMMES-NOUS ?</p>
+          <h2>Derrière<br>Vingt et Un</h2>
+          <div class="team-visual__text">
+            <p>
+              Nous sommes deux jeunes femmes de 21 ans. Dans cette période charnière,
+              aussi excitante que paralysante, nous nous posons toutes les questions
+              propres à cet âge : comment faire les bons choix ? Comment donner du sens
+              à ce que l’on fait ? Comment trouver sa voie et construire sa carrière ?
+            </p>
+            <p>
+              Alors, nous avons choisi de prendre les 21 ans comme point de départ pour
+              comprendre des parcours professionnels et des choix de vie inspirants.
+              À travers des discussions sincères et informelles, nos invités reviennent
+              sur cette période déterminante, sur les émotions qu’ils ont traversées et
+              sur les décisions qui les ont menés là où ils sont aujourd’hui.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="suivre" class="social-section">
+      <div>
+        <p class="eyebrow">LES COULISSES DU PODCAST</p>
+        <h2>Retrouve Vingt et Un sur les réseaux</h2>
+      </div>
+      <div class="social-links">
+        <a href="https://www.instagram.com/vingtetun_podcast" target="_blank" rel="noopener noreferrer">Instagram ↗</a>
+        <a href="https://tiktok.com/embed/7659835369017625888" target="_blank" rel="noopener noreferrer">TikTok ↗</a>
+        <a href="mailto:contact@vingtetun-media.fr">E-mail ↗</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <a href="#accueil" class="footer-logo">
+      <img src="logo-footer.png" alt="Logo Vingt et Un" class="footer-logo-image">
+    </a>
+    <p>Vingt et Un — le podcast de la vingtaine.</p>
+    <p>© <span id="year"></span> Vingt et Un</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

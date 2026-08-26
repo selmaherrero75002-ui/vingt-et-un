@@ -1,46 +1,26 @@
-# Site Vingt et Un
+# Site Vingt et Un — version premium et RSS
 
-Site vitrine responsive en une seule page pour présenter le podcast et rediriger les auditeurs vers Spotify, Apple Podcasts, Deezer et YouTube.
+## Fichiers à remplacer
+- `index.html`
+- `styles.css`
+- `script.js`
 
-## Modifier les liens
+## Fichier à ajouter
+- dossier `api`
+- fichier `api/rss.js`
 
-Ouvrez `index.html` avec un éditeur de texte et remplacez les adresses suivantes :
+## Images à conserver dans le même dossier
+- `logo.png`
+- `logo-footer.png`
+- `maxime-lagarde.jpg`
+- `camille-lorillon.jpg`
+- `jerome-delafosse.jpg`
+- `a-propos.jpg`
 
-- `https://open.spotify.com/`
-- `https://podcasts.apple.com/`
-- `https://www.deezer.com/`
-- `https://www.youtube.com/`
-- les liens Instagram et TikTok
-- `contact@vingtetun-media.fr`
+## Activer l’automatisation RSS sur Vercel
+1. Ouvre Spotify for Creators et copie l’adresse du flux RSS du podcast.
+2. Dans Vercel : **Settings → Environment Variables**.
+3. Crée la variable `RSS_FEED_URL` et colle ton flux comme valeur.
+4. Redéploie le site.
 
-## Modifier les épisodes
-
-Dans `index.html`, cherchez `episode-card`. Chaque bloc correspond à un épisode. Vous pouvez modifier :
-- le métier de l’invité ;
-- la question affichée ;
-- le titre ;
-- le descriptif ;
-- le lien d’écoute.
-
-## Mettre le site en ligne gratuitement
-
-Option simple :
-1. créez un compte sur Netlify ;
-2. glissez-déposez le dossier complet sur la page de déploiement ;
-3. Netlify fournit immédiatement un lien public ;
-4. vous pourrez ensuite connecter un nom de domaine personnalisé.
-
-Autres solutions : GitHub Pages, Vercel ou Framer.
-
-## Ajouter de vraies photos
-
-Dans `styles.css`, les visuels d’épisodes sont actuellement des dégradés.
-Vous pourrez les remplacer par vos images en utilisant :
-
-```css
-.episode-one::before {
-  background: url("images/jerome.jpg") center / cover no-repeat;
-}
-```
-
-Créez alors un dossier `images` à côté de `index.html`.
+En local avec Live Server, les trois épisodes déjà enregistrés restent affichés. Une fois publié sur Vercel et la variable ajoutée, les épisodes du flux remplacent automatiquement ces cartes.

@@ -7,1018 +7,757 @@
   <meta property="og:title" content="Vingt et Un — Le podcast" />
   <meta property="og:description" content="Des conversations sincères sur la vingtaine, les choix et les parcours." />
   <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#000000" />
   <title>Vingt et Un — Le podcast</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&display=swap" rel="stylesheet">
   <style>
-    /* Nouvelle présentation éditoriale des épisodes */
-    .episodes-section.editorial-episodes {
-      padding: clamp(80px, 10vw, 150px) 5%;
-      background: #fffef3;
+    /* =========================================================
+       VINGT ET UN — direction artistique sobre
+       Noir & blanc, grands titres condensés, contenu très lisible.
+       ========================================================= */
+    :root {
+      --ink: #000000;
+      --paper: #ffffff;
+      --soft: #f4f4f2;
+      --line: #e2e2e0;
+      --muted: #666664;
+      --accent: #e36d32;        /* orange décoratif (traits, puces, survols) */
+      --accent-text: #b84a17;   /* orange lisible pour le texte sur fond blanc */
+      --accent-soft: #fdf1ea;   /* orange très pâle pour les fonds */
+      --font: "Archivo", "Helvetica Neue", Arial, sans-serif;
+      --max: 1280px;
+      --gutter: clamp(20px, 5vw, 64px);
+      --header-h: 76px;
     }
 
-    .editorial-episodes__intro {
-      max-width: 820px;
-      margin: 0 auto clamp(52px, 7vw, 90px);
-      text-align: center;
-    }
+    *, *::before, *::after { box-sizing: border-box; }
 
-    .editorial-episodes__intro::before,
-    .editorial-episodes__intro::after {
-      content: "";
-      display: block;
-      width: 100%;
-      height: 1px;
-      background: rgba(20, 20, 20, .18);
-    }
+    html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header-h) + 12px); }
 
-    .editorial-episodes__intro::before { margin-bottom: 46px; }
-    .editorial-episodes__intro::after { margin-top: 46px; }
-
-    .editorial-episodes__intro h2 {
+    body {
       margin: 0;
-      font-family: "Montserrat", Arial, sans-serif;
-      font-size: clamp(2.3rem, 6vw, 5.4rem);
-      font-weight: 900;
-      line-height: .95;
-      letter-spacing: -.055em;
-      text-transform: uppercase;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--font);
+      font-size: 17px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
     }
 
-    .editorial-episodes__intro p {
-      max-width: 590px;
-      margin: 24px auto 0;
-      font-size: clamp(1rem, 1.5vw, 1.2rem);
-      line-height: 1.65;
+    img { max-width: 100%; display: block; }
+    a { color: inherit; }
+
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+    ::selection { background: var(--accent); color: #fff; }
+
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
     }
 
-    .editorial-episodes__grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: clamp(22px, 2.8vw, 42px);
-      max-width: 1440px;
-      margin: 0 auto;
-      align-items: start;
-    }
+    .wrap { max-width: var(--max); margin: 0 auto; padding-inline: var(--gutter); }
 
-    .editorial-card {
-      overflow: hidden;
-      border: 1px solid rgba(20, 20, 20, .08);
-      border-radius: 24px;
-      background: #fffef3;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, .05);
-      transition: transform .35s ease, box-shadow .35s ease;
-    }
-
-    .editorial-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 20px 55px rgba(0, 0, 0, .09);
-    }
-
-    .editorial-card__media.episode-image {
-      position: relative;
-      width: 100%;
-      min-height: 0;
-      aspect-ratio: 1 / 1;
-      overflow: hidden;
-      border-radius: 0;
-      background-position: center;
-      background-size: cover;
-      transition: transform .5s ease;
-    }
-
-    .editorial-card:hover .editorial-card__media {
-      transform: scale(1.02);
-    }
-
-    .editorial-card__number {
-      position: absolute;
-      top: 22px;
-      right: 22px;
-      display: grid;
-      width: 48px;
-      height: 48px;
-      place-items: center;
-      border-radius: 50%;
-      background: #fffef3;
-      color: #151515;
-      font-family: "Montserrat", Arial, sans-serif;
-      font-size: .78rem;
-      font-weight: 900;
-    }
-
-    .editorial-card__body {
-      padding: clamp(27px, 3vw, 42px);
-    }
-
-    .editorial-card__name {
+    /* Titres : l'élément fort du site */
+    .display {
       margin: 0;
-      font-family: "Montserrat", Arial, sans-serif;
-      font-size: clamp(1.5rem, 2.1vw, 2.15rem);
-      font-weight: 900;
-      line-height: 1.05;
-      letter-spacing: -.035em;
-    }
-
-    .editorial-card__role {
-      margin: 9px 0 28px;
-      color: #d8662e;
-      font-size: .78rem;
-      font-weight: 700;
-      letter-spacing: .11em;
-      text-transform: uppercase;
-    }
-
-    .editorial-card__title {
-      margin: 0 0 20px;
-      font-family: "Montserrat", Arial, sans-serif;
-      font-size: clamp(1.25rem, 1.7vw, 1.65rem);
+      font-family: var(--font);
+      font-stretch: 72%;
       font-weight: 800;
-      line-height: 1.18;
-      letter-spacing: -.025em;
+      text-transform: uppercase;
+      line-height: .9;
+      letter-spacing: -.01em;
     }
 
-    .editorial-card__description {
-      margin: 0;
-      font-size: .98rem;
-      line-height: 1.7;
+    .section { padding-block: clamp(72px, 10vw, 128px); }
+    .section + .section { border-top: 1px solid var(--line); }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 420px);
+      gap: 24px 48px;
+      align-items: end;
+      margin-bottom: clamp(40px, 5vw, 64px);
     }
+    .section-head h2 { font-size: clamp(2.6rem, 6.5vw, 5.2rem); }
+    .section-head p { margin: 0; color: var(--muted); }
 
-    .editorial-card details {
-      margin-top: 12px;
-    }
-
-    .editorial-card summary {
-      width: fit-content;
-      margin: 18px auto 0;
-      padding: 7px 4px;
-      color: #d8662e;
-      cursor: pointer;
-      font-size: .88rem;
-      font-weight: 700;
-      list-style: none;
-    }
-
-    .editorial-card summary::-webkit-details-marker { display: none; }
-    .editorial-card summary::after { content: " ↓"; }
-    .editorial-card details[open] summary::after { content: " ↑"; }
-    .editorial-card details[open] summary .show-more { display: none; }
-    .editorial-card details:not([open]) summary .show-less { display: none; }
-
-    .editorial-card__more {
-      margin: 16px 0 0;
-      font-size: .98rem;
-      line-height: 1.7;
-    }
-
-    .editorial-card__footer {
-      margin-top: 28px;
-      padding-top: 25px;
-      border-top: 1px solid rgba(20, 20, 20, .16);
-      text-align: center;
-    }
-
-    .editorial-card__listen {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      min-height: 54px;
-      border-radius: 999px;
-      background: #151515;
-      color: #fffef3;
-      font-weight: 700;
-      text-decoration: none;
-      transition: background .25s ease, color .25s ease;
-    }
-
-    .editorial-card__listen:hover {
-      background: #e36d32;
-      color: #fff;
-    }
-
-    .editorial-card__platforms {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 8px 16px;
-      margin-top: 18px;
-      font-size: .78rem;
+    .kicker {
+      margin: 0 0 18px;
+      font-size: .95rem;
       font-weight: 600;
+      color: var(--accent-text);
     }
 
-    .editorial-card__platforms a {
+    /* Boutons */
+    .btn {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      color: #151515;
-      text-decoration: none;
-    }
-
-    .editorial-card__platforms a:hover { color: #d8662e; }
-
-    .brand-icon {
-      display: inline-block;
-      width: 1.15em;
-      height: 1.15em;
-      flex: 0 0 auto;
-      object-fit: contain;
-      vertical-align: -.18em;
-    }
-
-    .platform-icon .brand-icon {
-      width: 28px;
-      height: 28px;
-      vertical-align: middle;
-    }
-
-    .social-links a {
-      display: inline-flex;
-      align-items: center;
+      justify-content: center;
       gap: 10px;
+      min-height: 52px;
+      padding: 0 26px;
+      border: 1.5px solid var(--ink);
+      border-radius: 999px;
+      background: var(--ink);
+      color: var(--paper);
+      font: 600 1rem/1 var(--font);
+      text-decoration: none;
+      cursor: pointer;
+      transition: background .2s ease, color .2s ease;
     }
+    .btn:hover { background: var(--paper); color: var(--ink); }
+    .btn--ghost { background: transparent; color: var(--ink); }
+    .btn--ghost:hover { background: var(--ink); color: var(--paper); }
+    .btn--light { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+    .btn--light:hover { background: transparent; color: var(--paper); }
 
-    .social-links .brand-icon {
-      width: 22px;
-      height: 22px;
+    /* ---------- En-tête : navigation à gauche, logo à droite ---------- */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255, 255, 255, .94);
+      backdrop-filter: blur(10px);
+      border-top: 3px solid var(--accent);
+      border-bottom: 1px solid var(--line);
     }
-
-    @media (max-width: 980px) {
-      .editorial-episodes__grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-    }
-
-    @media (max-width: 660px) {
-      .episodes-section.editorial-episodes { padding-inline: 18px; }
-      .editorial-episodes__grid { grid-template-columns: 1fr; }
-      .editorial-card { border-radius: 20px; }
-      .editorial-card__body { padding: 28px 24px 30px; }
-      .editorial-episodes__intro::before { margin-bottom: 30px; }
-      .editorial-episodes__intro::after { margin-top: 30px; }
-    }
-
-    /* Présentation de l'équipe directement sur la photo */
-    .team-section.team-section--photo {
-      padding: clamp(70px, 9vw, 130px) 5%;
-      background: #fffef3;
-    }
-
-    .team-visual {
-      position: relative;
-      min-height: clamp(650px, 68vw, 900px);
-      max-width: 1440px;
-      margin: 0 auto;
-      overflow: hidden;
-      border-radius: 24px;
-      background: #16353c;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, .06);
-    }
-
-    .team-visual::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-      background:
-        linear-gradient(90deg, rgba(4, 14, 18, .82) 0%, rgba(4, 14, 18, .62) 43%, rgba(4, 14, 18, .12) 78%),
-        linear-gradient(0deg, rgba(4, 14, 18, .42) 0%, transparent 48%);
-      pointer-events: none;
-    }
-
-    .team-visual__photo {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
-    }
-
-    .team-visual__content {
-      position: relative;
-      z-index: 2;
+    .site-header__inner {
       display: flex;
-      min-height: inherit;
-      max-width: 760px;
-      padding: clamp(40px, 6vw, 88px);
-      flex-direction: column;
-      justify-content: center;
-      color: #fffef3;
+      align-items: center;
+      justify-content: space-between;
+      height: var(--header-h);
+      gap: 24px;
     }
-
-    .team-visual__content .eyebrow {
-      margin: 0 0 22px;
-      color: #ff8a4c;
-    }
-
-    .team-visual__content h2 {
-      max-width: 700px;
-      margin: 0 0 clamp(30px, 4vw, 54px);
-      color: #fffef3;
-      font-family: "Montserrat", Arial, sans-serif;
-      font-size: clamp(3rem, 7.5vw, 7.4rem);
-      font-weight: 900;
-      line-height: .88;
-      letter-spacing: -.065em;
-    }
-
-    .team-visual__text {
-      max-width: 670px;
-      font-size: clamp(1rem, 1.45vw, 1.22rem);
+    .main-nav { display: flex; gap: clamp(18px, 3vw, 36px); }
+    .main-nav a {
+      font-size: .98rem;
       font-weight: 600;
-      line-height: 1.65;
+      text-decoration: none;
+      padding-block: 6px;
+      border-bottom: 1.5px solid transparent;
     }
-
-    .team-visual__text p { margin: 0; }
-    .team-visual__text p + p { margin-top: 24px; }
-
-    @media (max-width: 760px) {
-      .team-section.team-section--photo { padding-inline: 18px; }
-
-      .team-visual {
-        min-height: 760px;
-        border-radius: 20px;
-      }
-
-      .team-visual::after {
-        background:
-          linear-gradient(0deg, rgba(4, 14, 18, .91) 0%, rgba(4, 14, 18, .68) 58%, rgba(4, 14, 18, .18) 100%);
-      }
-
-      .team-visual__photo { object-position: 59% center; }
-
-      .team-visual__content {
-        justify-content: flex-end;
-        padding: 34px 26px 40px;
-      }
-
-      .team-visual__content h2 {
-        margin-bottom: 28px;
-        font-size: clamp(2.7rem, 15vw, 4.8rem);
-      }
-
-      .team-visual__text {
-        font-size: .96rem;
-        line-height: 1.55;
-      }
+    .main-nav a:hover { border-bottom-color: var(--accent); }
+    .main-nav a.nav-contact {
+      padding: 9px 18px;
+      border: 1.5px solid var(--ink);
+      border-radius: 999px;
     }
+    .main-nav a.nav-contact:hover { background: var(--ink); color: var(--paper); }
 
-    /* Ajustements Vingt et Un : cartes carrées + logo noir */
+    .brand { margin-left: auto; }
     .brand-logo {
-      width: 155px;
-      height: auto;
-      display: block;
+      width: auto;
+      height: 44px;
       filter: grayscale(1) brightness(0);
     }
 
-    .editorial-card__media.episode-image {
-      aspect-ratio: 1 / 1;
-    }
-
-    .rss-status {
-      grid-column: 1 / -1;
-      padding: 22px;
-      border: 1px dashed rgba(20,20,20,.25);
-      border-radius: 18px;
-      text-align: center;
-      color: #6c6965;
-      background: rgba(255,255,255,.55);
-    }
-
-    .editorial-card__date {
-      margin: 0 0 14px;
-      color: #6c6965;
-      font-size: .82rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: .08em;
-    }
-
-    /* Logos officiels haute qualité */
-    .platform-icon {
-      display: grid !important;
-      place-items: center !important;
-      width: 58px !important;
-      height: 58px !important;
-      min-width: 58px !important;
-      border-radius: 16px !important;
-      background: #ffffff !important;
-      box-shadow: 0 8px 24px rgba(0,0,0,.08) !important;
-      overflow: hidden !important;
-    }
-
-    .platform-icon .brand-icon {
-      width: 34px !important;
-      height: 34px !important;
-      object-fit: contain !important;
-      filter: none !important;
-    }
-
-    .platform-card {
-      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease !important;
-    }
-
-    .platform-card:hover {
-      transform: translateY(-4px) !important;
-      box-shadow: 0 18px 45px rgba(0,0,0,.10) !important;
-      border-color: rgba(216,102,46,.45) !important;
-    }
-
-    .platform-card .arrow {
-      transition: transform .25s ease !important;
-    }
-
-    .platform-card:hover .arrow {
-      transform: translateX(5px) !important;
-    }
-
-
-    /* =========================================================
-       VERSION ÉCOUTE SIMPLE — inspirée des pages Fanlink
-       Une image, un titre, puis un accès direct à chaque plateforme.
-       ========================================================= */
-    .episodes-section.editorial-episodes {
-      background: #f4eee4;
-      padding: clamp(72px, 9vw, 130px) 5%;
-    }
-
-    .editorial-episodes__intro {
-      max-width: 760px;
-      margin-bottom: clamp(44px, 6vw, 72px);
-    }
-
-    .editorial-episodes__intro::before,
-    .editorial-episodes__intro::after { display: none; }
-
-    .editorial-episodes__intro h2 {
-      font-size: clamp(2.6rem, 6vw, 5.6rem);
-      letter-spacing: -.06em;
-    }
-
-    .editorial-episodes__intro p {
-      max-width: 520px;
-      margin-top: 18px;
-      color: #6c655d;
-    }
-
-    .editorial-episodes__grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: clamp(28px, 4vw, 54px);
-      max-width: 1120px;
-    }
-
-    .editorial-card {
-      overflow: hidden;
-      border: 0;
-      border-radius: 22px;
-      background: #181818;
-      color: #fff;
-      box-shadow: 0 18px 55px rgba(0,0,0,.13);
-      transform: none;
-    }
-
-    .editorial-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 24px 65px rgba(0,0,0,.17);
-    }
-
-    .editorial-card__media.episode-image {
-      aspect-ratio: 1 / 1;
-      background-color: #2a2a2a;
-      transform: none !important;
-    }
-
-    .editorial-card__media::after {
-      content: "";
-      position: absolute;
-      inset: auto 0 0;
-      height: 28%;
-      background: linear-gradient(to top, rgba(0,0,0,.26), transparent);
-      pointer-events: none;
-    }
-
-    .editorial-card__number {
-      z-index: 2;
-      top: 18px;
-      right: 18px;
-      width: 44px;
-      height: 44px;
-      background: rgba(20,20,20,.78);
-      color: #fff;
-      border: 1px solid rgba(255,255,255,.16);
-      backdrop-filter: blur(10px);
-    }
-
-    .editorial-card__body {
+    .menu-button {
+      display: none;
+      width: 44px; height: 44px;
       padding: 0;
+      border: 0;
+      background: none;
+      cursor: pointer;
     }
-
-    .episode-heading {
-      padding: clamp(28px, 4vw, 42px) clamp(24px, 4vw, 42px) 30px;
-      text-align: center;
-      background: #181818;
+    .menu-button span:not(.sr-only) {
+      display: block;
+      width: 24px; height: 2px;
+      margin: 5px auto;
+      background: var(--ink);
+      transition: transform .2s ease, opacity .2s ease;
     }
+    .menu-button[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .menu-button[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+    .menu-button[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-    .editorial-card__date {
-      margin: 0 0 10px;
-      color: #a9a9a9;
-      font-size: .72rem;
-      letter-spacing: .11em;
+    /* ---------- Accueil ---------- */
+    .hero { padding-block: clamp(56px, 8vw, 110px) clamp(48px, 6vw, 80px); }
+    .hero__grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+      gap: clamp(40px, 6vw, 88px);
+      align-items: end;
     }
-
-    .editorial-card__name {
-      margin: 0;
-      color: #fff;
-      font-size: clamp(1.45rem, 2.2vw, 2rem);
-      line-height: 1.18;
-      letter-spacing: -.035em;
+    .hero h1 { font-size: clamp(2.8rem, 6.2vw, 5.8rem); }
+    .hero__lead {
+      max-width: 520px;
+      margin: 28px 0 36px;
+      font-size: clamp(1.05rem, 1.4vw, 1.2rem);
+      color: #333;
     }
+    .hero__actions { display: flex; flex-wrap: wrap; gap: 12px; }
 
-    .episode-description-wrap {
-      padding: 0 clamp(24px, 4vw, 42px) 24px;
-      text-align: center;
-      background: #181818;
+    .latest {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      overflow: hidden;
+      background: var(--paper);
     }
-
-    .editorial-card__description,
-    .editorial-card__more {
-      color: #bdbdbd;
-      font-size: .94rem;
-      line-height: 1.65;
-    }
-
-    .editorial-card details { margin-top: 4px; }
-
-    .editorial-card summary {
-      margin-top: 11px;
-      color: #fff;
-      opacity: .75;
-      font-size: .79rem;
+    .latest__label {
+      display: flex;
+      justify-content: space-between;
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--line);
+      font-size: .88rem;
       font-weight: 600;
     }
+    .latest__label span:first-child { color: var(--accent-text); }
+    .latest__label span:last-child { color: var(--muted); font-weight: 500; }
+    .latest__media { aspect-ratio: 4 / 3; background: var(--soft); }
+    .latest__media img { width: 100%; height: 100%; object-fit: cover; }
+    /* Cadrage de la photo de David Foenkinos : on garde le haut (le visage) */
+    img[src="david-foenkinos.jpg"] { object-position: 50% 0%; }
+    img[src="karin-viard.jpg"] { object-position: 50% 20%; }
+    .latest__body { padding: 20px 18px 22px; }
+    .latest__title { margin: 0 0 16px; font-size: 1.15rem; line-height: 1.3; font-weight: 700; }
+    .latest__title small { display: block; margin-top: 4px; font-size: .92rem; font-weight: 500; color: var(--muted); }
 
-    .editorial-card__footer {
-      margin: 0;
-      padding: 0;
-      border-top: 1px solid #3d3d3d;
-      text-align: left;
+    /* Bandeau des invités */
+    .guests {
+      border-block: 1px solid var(--ink);
+      overflow: hidden;
+      white-space: nowrap;
+      background: var(--ink);
+      color: var(--paper);
     }
-
-    .episode-platform-list {
-      display: block;
-      margin: 0;
+    .guests__track {
+      display: inline-flex;
+      animation: guests-scroll 60s linear infinite;
     }
+    .guests__track span {
+      padding: 16px 28px;
+      font-stretch: 72%;
+      font-weight: 700;
+      font-size: 1.15rem;
+      text-transform: uppercase;
+    }
+    .guests__track span + span::before { content: "/"; margin-right: 56px; margin-left: -28px; color: var(--accent); }
+    @keyframes guests-scroll { to { transform: translateX(-50%); } }
 
-    .episode-platform-row {
+    /* ---------- Plateformes ---------- */
+    .platforms {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      border-top: 1px solid var(--line);
+      border-left: 1px solid var(--line);
+    }
+    .platform {
+      display: flex;
       align-items: center;
-      min-height: 94px;
-      padding: 20px clamp(24px, 4vw, 42px);
-      border-bottom: 1px solid #3d3d3d;
-      color: #fff;
+      gap: 16px;
+      padding: 22px 24px;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
       text-decoration: none;
       transition: background .2s ease;
     }
+    .platform:hover { background: var(--accent-soft); }
+    .platform svg { width: 36px; height: 36px; flex: 0 0 36px; }
+    .platform small { display: block; color: var(--muted); font-size: .85rem; line-height: 1.3; }
+    .platform strong { display: block; font-size: 1.08rem; line-height: 1.3; }
+    .platform__go { margin-left: auto; font-size: .9rem; font-weight: 600; color: var(--muted); }
+    .platform:hover .platform__go { color: var(--accent-text); }
 
-    .episode-platform-row:last-child { border-bottom: 0; }
-    .episode-platform-row:hover { background: #222; }
-
-    .episode-platform-brand {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      min-width: 0;
-    }
-
-    .episode-platform-brand img {
-      width: 34px;
-      height: 34px;
-      object-fit: contain;
-      flex: 0 0 auto;
-      filter: none !important;
-    }
-
-    .episode-platform-name {
-      color: #fff;
-      font-family: "DM Sans", Arial, sans-serif;
-      font-size: 1.08rem;
-      font-weight: 700;
-      letter-spacing: -.02em;
-    }
-
-    .episode-platform-row.spotify-row .episode-platform-name { color: #1ed760; }
-
-    .episode-listen-action {
-      display: inline-flex;
-      align-items: center;
-      gap: 9px;
-      padding-left: 18px;
-      color: #f3f3f3;
-      font-size: .75rem;
-      font-weight: 600;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      white-space: nowrap;
-    }
-
-    .episode-listen-action::before {
-      content: "▶";
-      font-size: .9rem;
-      letter-spacing: 0;
-    }
-
-    .episode-platform-empty {
-      min-height: 88px;
+    /* ---------- Épisodes ---------- */
+    .episodes-grid {
       display: grid;
-      place-items: center;
-      padding: 20px;
-      color: #8e8e8e;
-      border-bottom: 1px solid #3d3d3d;
-      font-size: .82rem;
-      text-align: center;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: clamp(40px, 4vw, 56px) clamp(20px, 2.5vw, 36px);
+    }
+    .rss-status { grid-column: 1 / -1; color: var(--muted); }
+
+    .ep { display: flex; flex-direction: column; cursor: pointer; }
+    .ep__media {
+      position: relative;
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      border-radius: 14px;
+      background: var(--soft);
+    }
+    .ep__media img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+    .ep:hover .ep__media img { transform: scale(1.03); }
+
+    .ep__meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 18px 0 8px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--line);
+      font-size: .86rem;
+      font-weight: 600;
+    }
+    .ep__meta span:first-child { color: var(--accent-text); }
+    .ep__meta span:last-child { color: var(--muted); font-weight: 500; }
+
+    .ep__title { margin: 0; font-size: 1.3rem; line-height: 1.25; font-weight: 700; letter-spacing: -.01em; }
+    .ep__title button {
+      all: unset;
+      cursor: pointer;
+    }
+    .ep__title button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+    .ep__role { margin: 4px 0 0; color: var(--muted); font-size: .96rem; line-height: 1.4; }
+
+    .ep__desc { margin: 14px 0 0; font-size: .96rem; color: #333; }
+
+    .ep__more {
+      margin-top: 12px;
+      padding: 0;
+      border: 0;
+      background: none;
+      font: 600 .9rem var(--font);
+      text-decoration: underline;
+      text-decoration-color: var(--accent);
+      text-decoration-thickness: 2px;
+      text-underline-offset: 4px;
+      cursor: pointer;
+      align-self: flex-start;
     }
 
-    .editorial-card--coming-soon .editorial-card__media {
-      background:
-        radial-gradient(circle at 24% 18%, rgba(230,109,50,.55), transparent 34%),
-        radial-gradient(circle at 78% 82%, rgba(255,222,160,.27), transparent 32%),
-        #181818;
+    .ep__listen {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: auto;
+      padding-top: 20px;
     }
-
-    .editorial-card--coming-soon .editorial-card__media::before {
-      content: none;
-      display: none;
-    }
-
-    .coming-soon-box {
-      padding: 36px 28px 40px;
-      text-align: center;
-      border-top: 1px solid #3d3d3d;
-      color: #bbb;
-    }
-
-    .coming-soon-pill {
+    .pill {
       display: inline-flex;
       align-items: center;
-      justify-content: center;
-      min-height: 48px;
-      padding: 0 24px;
-      border: 1px solid rgba(255,255,255,.24);
+      gap: 8px;
+      min-height: 40px;
+      padding: 0 14px 0 8px;
+      border: 1px solid var(--line);
       border-radius: 999px;
-      color: #fff;
-      font-weight: 700;
-      letter-spacing: .04em;
+      font-size: .88rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: border-color .2s ease;
     }
+    .pill:hover { border-color: var(--accent); background: var(--accent-soft); }
+    .pill svg { width: 24px; height: 24px; flex: 0 0 24px; }
 
-    @media (max-width: 760px) {
-      .episodes-section.editorial-episodes { padding-inline: 14px; }
-      .editorial-episodes__grid { grid-template-columns: 1fr; max-width: 560px; }
-      .editorial-card { border-radius: 0; }
-      .episode-heading { padding: 28px 22px 24px; }
-      .episode-description-wrap { padding: 0 22px 22px; }
-      .episode-platform-row { min-height: 90px; padding: 18px 22px; }
-      .episode-platform-brand img { width: 122px; }
-      .episode-platform-row.apple-row .episode-platform-brand img { width: 140px; }
-      .episode-listen-action { font-size: .7rem; }
+    /* ---------- Le concept ---------- */
+    .concept__grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: clamp(40px, 6vw, 96px);
     }
-  
-    /* Carte épisode à venir */
-    .editorial-card.upcoming-card .editorial-card__media {
-      position: relative;
+    .concept h2 { font-size: clamp(2.6rem, 6vw, 5rem); }
+    .concept__text p { margin: 0 0 1.1em; font-size: 1.1rem; max-width: 60ch; }
+    .concept__points {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-top: clamp(56px, 7vw, 88px);
+      border-top: 3px solid var(--accent);
     }
-    .editorial-card.upcoming-card .editorial-card__media::after {
-      content: "PROCHAINEMENT";
-      position: absolute;
-      left: 18px;
-      bottom: 18px;
-      padding: 9px 14px;
-      border-radius: 999px;
-      background: rgba(255,254,243,.94);
-      color: #151515;
-      font-size: .72rem;
+    .concept__points div { padding: 24px 24px 0 0; }
+    .concept__points div + div { padding-left: 24px; border-left: 1px solid var(--line); }
+    .concept__points h3 {
+      margin: 0 0 8px;
+      font-stretch: 72%;
       font-weight: 800;
-      letter-spacing: .08em;
+      font-size: 1.9rem;
+      line-height: 1;
+      text-transform: uppercase;
     }
-    .upcoming-card .editorial-card__footer {
-      display: none;
+    .concept__points p { margin: 0; color: var(--muted); }
+
+    /* ---------- À propos ---------- */
+    .team__grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: clamp(36px, 6vw, 88px);
+      align-items: center;
     }
-  
-    /* Logos intégrés au fichier : stables, fixes et sans dépendance externe */
-    .brand-svg {
-      display: block !important;
-      width: 34px !important;
-      height: 34px !important;
-      min-width: 34px !important;
-      max-width: 34px !important;
-      flex: 0 0 34px !important;
-      object-fit: contain !important;
-      transform: none !important;
+    .team__photo { border-radius: 18px; overflow: hidden; aspect-ratio: 4 / 5; background: var(--soft); }
+    .team__photo img { width: 100%; height: 100%; object-fit: cover; }
+    .team h2 { font-size: clamp(2.6rem, 6vw, 5rem); margin-bottom: 32px; }
+    .team p { margin: 0 0 1.1em; max-width: 58ch; font-size: 1.05rem; }
+
+    /* ---------- Nous contacter ---------- */
+    .contact { background: var(--ink); color: var(--paper); }
+    .contact .kicker { color: var(--accent); }
+    .contact__grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: 40px 72px;
+      align-items: end;
+    }
+    .contact h2 { font-size: clamp(2.8rem, 7vw, 6rem); }
+    .contact__text { margin: 0 0 28px; color: #d0d0cd; font-size: 1.08rem; max-width: 46ch; }
+    .contact__mail {
+      display: inline-block;
+      margin-bottom: 28px;
+      font-size: clamp(1.2rem, 2.4vw, 1.8rem);
+      font-weight: 600;
+      text-decoration: underline;
+      text-decoration-color: var(--accent);
+      text-decoration-thickness: 2px;
+      text-underline-offset: 6px;
+      overflow-wrap: anywhere;
+    }
+    .contact__actions { display: flex; flex-wrap: wrap; gap: 12px; }
+    .contact .btn--ghost { color: var(--paper); border-color: var(--paper); }
+    .contact .btn--ghost:hover { background: var(--paper); color: var(--ink); }
+
+    /* ---------- Pied de page ---------- */
+    .site-footer { background: var(--ink); color: #a3a3a0; border-top: 1px solid #2a2a2a; }
+    .site-footer__inner {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px 40px;
+      padding-block: 32px;
+      font-size: .92rem;
+    }
+    .site-footer img { height: 36px; width: auto; filter: grayscale(1) brightness(0) invert(1); }
+    .site-footer nav { display: flex; flex-wrap: wrap; gap: 20px; }
+    .site-footer nav a { color: var(--paper); text-decoration: none; font-weight: 600; }
+    .site-footer nav a:hover { color: var(--accent); }
+    .site-footer p { margin: 0; }
+
+    /* ---------- Fiche épisode (fenêtre) ---------- */
+    .episode-modal[hidden] { display: none; }
+    .episode-modal { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: 20px; }
+    .episode-modal__backdrop { position: absolute; inset: 0; background: rgba(0, 0, 0, .55); }
+    .episode-modal__panel {
+      position: relative;
+      width: min(860px, 100%);
+      max-height: calc(100vh - 40px);
+      overflow-y: auto;
+      border-radius: 20px;
+      background: var(--paper);
+    }
+    .episode-modal__close {
+      position: sticky;
+      top: 14px;
+      float: right;
+      margin: 14px 14px 0 0;
+      width: 44px; height: 44px;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      background: var(--paper);
+      font-size: 1.5rem;
+      line-height: 1;
+      cursor: pointer;
+      z-index: 2;
+    }
+    .episode-modal__top {
+      display: grid;
+      grid-template-columns: 240px minmax(0, 1fr);
+      gap: 32px;
+      padding: 32px 32px 0;
+    }
+    .episode-modal__image { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 14px; background: var(--soft); }
+    .episode-modal__eyebrow { margin: 0 0 10px; font-size: .9rem; font-weight: 600; color: var(--accent-text); }
+    .episode-modal__title {
+      margin: 0 0 20px;
+      font-stretch: 72%;
+      font-weight: 800;
+      font-size: clamp(1.9rem, 4vw, 2.8rem);
+      line-height: .95;
+      text-transform: uppercase;
+    }
+    .episode-modal__description p { margin: 0 0 1em; font-size: 1rem; color: #333; }
+    .episode-modal__platforms {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 24px 32px 32px;
+      margin-top: 8px;
+      border-top: 1px solid var(--line);
+    }
+    .episode-modal__share { margin-left: auto; }
+
+    /* ---------- Adaptations ---------- */
+    @media (max-width: 1024px) {
+      .episodes-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .platforms { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
 
-    .platform-icon,
-    .episode-platform-brand {
-      flex-shrink: 0 !important;
-    }
-
-    .platform-icon .brand-svg,
-    .episode-platform-brand .brand-svg {
-      pointer-events: none;
-    }
-
-    .episode-platform-brand .brand-svg {
-      width: 36px !important;
-      height: 36px !important;
-      min-width: 36px !important;
-      max-width: 36px !important;
-      flex-basis: 36px !important;
-    }
-
-    .editorial-card__media.episode-image.mehdi-photo {
-      background-image: url("mehdi-chaoui.jpg") !important;
-      background-position: center center !important;
-      background-size: cover !important;
-      background-repeat: no-repeat !important;
-    }
-
-    @media (max-width: 720px) {
-      .platform-icon {
-        width: 52px !important;
-        height: 52px !important;
-        min-width: 52px !important;
+    @media (max-width: 860px) {
+      :root { --header-h: 64px; }
+      .menu-button { display: block; }
+      .main-nav {
+        position: absolute;
+        top: var(--header-h);
+        left: 0; right: 0;
+        flex-direction: column;
+        gap: 0;
+        padding: 8px var(--gutter) 20px;
+        background: var(--paper);
+        border-bottom: 1px solid var(--line);
+        display: none;
       }
+      .main-nav.is-open { display: flex; }
+      .main-nav a { padding: 14px 0; border-bottom: 1px solid var(--line); font-size: 1.1rem; }
+      .main-nav a.nav-contact { margin-top: 14px; text-align: center; }
+      .brand-logo { height: 36px; }
 
-      .platform-icon .brand-svg {
-        width: 31px !important;
-        height: 31px !important;
-        min-width: 31px !important;
-        max-width: 31px !important;
-      }
-
-      .episode-platform-brand .brand-svg {
-        width: 32px !important;
-        height: 32px !important;
-        min-width: 32px !important;
-        max-width: 32px !important;
-        flex-basis: 32px !important;
-      }
-
-      .editorial-card__media.episode-image.mehdi-photo {
-      background-image: url("mehdi-chaoui.jpg") !important;
-      background-position: center center !important;
-      background-size: cover !important;
-      background-repeat: no-repeat !important;
-    }
+      .hero__grid, .concept__grid, .team__grid, .contact__grid, .section-head { grid-template-columns: 1fr; }
+      .latest { max-width: 440px; }
+      .concept__points { grid-template-columns: 1fr; }
+      .concept__points div, .concept__points div + div { padding: 20px 0; border-left: 0; }
+      .concept__points div + div { border-top: 1px solid var(--line); }
+      .team__photo { aspect-ratio: 4 / 3; }
+      .episode-modal__top { grid-template-columns: 1fr; padding: 24px 22px 0; gap: 22px; }
+      .episode-modal__image { max-width: 220px; }
+      .episode-modal__platforms { padding: 20px 22px 26px; }
+      .episode-modal__share { margin-left: 0; }
     }
 
+    @media (max-width: 600px) {
+      body { font-size: 16px; }
+      .episodes-grid, .platforms { grid-template-columns: 1fr; }
+      .hero__actions .btn, .contact__actions .btn { width: 100%; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .guests__track { animation: none; }
+      .ep__media img { transition: none; }
+    }
   </style>
 </head>
 <body>
-  <div class="top-line"></div>
 
   <header class="site-header">
-   <a href="#accueil" class="brand" aria-label="Accueil Vingt et Un">
-<img src="logo-footer.png" alt="Logo Vingt et Un" class="brand-logo"></a>
-
-    <button class="menu-button" type="button" aria-expanded="false" aria-controls="main-nav">
-      <span></span><span></span><span></span>
-      <span class="sr-only">Ouvrir le menu</span>
-    </button>
-
-    <nav id="main-nav" class="main-nav">
-      <a href="#episodes">Épisodes</a>
-      <a href="#apropos">À propos</a>
-      <a href="#suivre">Nous suivre</a>
-    </nav>
+    <div class="wrap site-header__inner">
+      <button class="menu-button" type="button" aria-expanded="false" aria-controls="main-nav">
+        <span></span><span></span><span></span><span class="sr-only">Ouvrir le menu</span>
+      </button>
+      <nav id="main-nav" class="main-nav" aria-label="Navigation principale">
+        <a href="#episodes">Épisodes</a>
+        <a href="#concept">Le concept</a>
+        <a href="#equipe">À propos</a>
+        <a href="#contact" class="nav-contact">Nous contacter</a>
+      </nav>
+      <a href="#accueil" class="brand" aria-label="Accueil Vingt et Un">
+        <img src="logo-footer.png" alt="Vingt et Un" class="brand-logo">
+      </a>
+    </div>
   </header>
 
   <main>
+    <!-- ACCUEIL -->
     <section id="accueil" class="hero">
-      <div class="hero-copy">
-        <p class="eyebrow">LE PODCAST DE LA VINGTAINE</p>
-       <h1 class="new-hero-title">
-  Vingt et Un,<br>
-  <span>un podcast qui prend 21 ans pour comprendre des choix de vie.</span>
-</h1>
-        <div class="hero-actions">
-          <a class="button button-primary" href="#episodes">Découvrir les épisodes</a>
-          <a class="button button-secondary" href="#plateformes">Écouter le podcast</a>
+      <div class="wrap hero__grid">
+        <div>
+          <p class="kicker">Le podcast de la vingtaine</p>
+          <h1 class="display">Un podcast qui désacralise la vingtaine&nbsp;!</h1>
+          <p class="hero__lead">
+            Chaque épisode, un invité revient sur ses 21 ans&nbsp;: les doutes, les détours
+            et les décisions qui l’ont mené là où il est aujourd’hui.
+          </p>
+          <div class="hero__actions">
+            <a class="btn" href="#episodes">Voir les épisodes</a>
+            <a class="btn btn--ghost" href="#plateformes">Écouter le podcast</a>
+          </div>
         </div>
-      </div>
 
-      <div class="hero-art" aria-label="Illustration du podcast Vingt et Un">
-        <img src="logo.png" alt="Logo Vingt et Un" class="hero-main-logo">
-        <div class="orbit orbit-one"></div>
-      </div>
-    </section>
-
-    <section id="plateformes" class="listen-section">
-      <div class="section-heading centered">
-        <p class="eyebrow">ÉCOUTER LE PODCAST</p>
-        <h2>Choisis ta plateforme</h2>
-      </div>
-
-      <div class="platform-grid">
-        <a class="platform-card" href="https://open.spotify.com/show/033HXngvf0fcM9TeI7miMQ" target="_blank" rel="noopener noreferrer">
-          <span class="platform-icon spotify">
-            <svg class="brand-icon brand-svg" viewBox="0 0 64 64" aria-hidden="true">
-      <circle cx="32" cy="32" r="30" fill="#1ED760"/>
-      <path d="M17 24.5c10.8-3.1 23.3-2.5 32.7 2" fill="none" stroke="#111" stroke-width="5" stroke-linecap="round"/>
-      <path d="M19.5 33c9.1-2.3 19.7-1.8 27.9 1.7" fill="none" stroke="#111" stroke-width="4.4" stroke-linecap="round"/>
-      <path d="M22 41c7.3-1.7 15.5-1.2 22 1.4" fill="none" stroke="#111" stroke-width="3.8" stroke-linecap="round"/>
-    </svg>
-          </span>
-          <span>
-            <small>Écouter sur</small>
-            <strong>Spotify</strong>
-          </span>
-          <span class="arrow">→</span>
-        </a>
-
-        <a class="platform-card" href="https://podcasts.apple.com/fr/podcast/vingt-et-un/id6790472406" target="_blank" rel="noopener noreferrer">
-          <span class="platform-icon apple">
-            <svg class="brand-icon brand-svg" viewBox="0 0 64 64" aria-hidden="true">
-      <rect x="2" y="2" width="60" height="60" rx="15" fill="#8E44F7"/>
-      <circle cx="32" cy="28" r="6" fill="#fff"/>
-      <circle cx="32" cy="28" r="13" fill="none" stroke="#fff" stroke-width="3"/>
-      <circle cx="32" cy="28" r="20" fill="none" stroke="#fff" stroke-width="3"/>
-      <path d="M28 38h8l-1.7 13h-4.6z" fill="#fff"/>
-    </svg>
-          </span>
-          <span>
-            <small>Écouter sur</small>
-            <strong>Apple Podcasts</strong>
-          </span>
-          <span class="arrow">→</span>
-        </a>
-
-        <a class="platform-card" href="https://www.deezer.com/fr/show/1003405302" target="_blank" rel="noopener noreferrer">
-          <span class="platform-icon deezer">
-            <svg class="brand-icon brand-svg" viewBox="0 0 64 64" aria-hidden="true">
-      <rect x="5" y="38" width="9" height="8" rx="1" fill="#A238FF"/>
-      <rect x="16" y="32" width="9" height="14" rx="1" fill="#5A42FF"/>
-      <rect x="27" y="25" width="9" height="21" rx="1" fill="#16B8FF"/>
-      <rect x="38" y="18" width="9" height="28" rx="1" fill="#FF2D8D"/>
-      <rect x="49" y="11" width="9" height="35" rx="1" fill="#FFB000"/>
-    </svg>
-          </span>
-          <span>
-            <small>Écouter sur</small>
-            <strong>Deezer</strong>
-          </span>
-          <span class="arrow">→</span>
-        </a>
-
-        <a
-  class="platform-card"
-  href="https://www.instagram.com/vingtetun_podcast"
-  target="_blank"
-  rel="noopener"
->
-  <span class="platform-icon instagram">
-    <svg class="brand-icon brand-svg" viewBox="0 0 64 64" aria-hidden="true">
-      <defs><linearGradient id="igGrad" x1="0" y1="1" x2="1" y2="0">
-        <stop offset="0" stop-color="#FFD600"/><stop offset=".45" stop-color="#FF2D55"/><stop offset="1" stop-color="#833AB4"/>
-      </linearGradient></defs>
-      <rect x="4" y="4" width="56" height="56" rx="16" fill="url(#igGrad)"/>
-      <rect x="16" y="16" width="32" height="32" rx="10" fill="none" stroke="#fff" stroke-width="4"/>
-      <circle cx="32" cy="32" r="8" fill="none" stroke="#fff" stroke-width="4"/>
-      <circle cx="43" cy="21" r="2.7" fill="#fff"/>
-    </svg>
-  </span>
-  <span>
-    <small>Nous suivre sur</small>
-    <strong>Instagram</strong>
-  </span>
-  <span class="arrow">→</span>
-</a>
-
-<a
-  class="platform-card"
-  href="https://tiktok.com/embed/7659835369017625888"
-  target="_blank"
-  rel="noopener"
->
-  <span class="platform-icon tiktok">
-    <svg class="brand-icon brand-svg" viewBox="0 0 64 64" aria-hidden="true">
-      <rect x="4" y="4" width="56" height="56" rx="15" fill="#111"/>
-      <path d="M36 16v24.5a9.5 9.5 0 1 1-8-9.4v6a3.6 3.6 0 1 0 2 3.2V16h6z" fill="#25F4EE" transform="translate(-2,1)"/>
-      <path d="M39 15c1.2 6 4.7 9.4 10 10.6v6c-4.1-.2-7.6-1.6-10-4v13a9.5 9.5 0 1 1-8-9.4v6a3.6 3.6 0 1 0 2 3.2V15h6z" fill="#FE2C55" transform="translate(2,-1)"/>
-      <path d="M37 15c1.2 6 4.7 9.4 10 10.6v4.2c-4.3-.5-7.7-2-10-4.4v15a9.5 9.5 0 1 1-8-9.4v4.4a5.1 5.1 0 1 0 3 4.6V15h5z" fill="#fff"/>
-    </svg>
-  </span>
-  <span>
-    <small>Nous suivre sur</small>
-    <strong>TikTok</strong>
-  </span>
-  <span class="arrow">→</span>
-</a>
+        <aside class="latest" id="latest" aria-label="Dernier épisode" hidden>
+          <div class="latest__label"><span>Dernier épisode</span><span id="latest-date"></span></div>
+          <div class="latest__media"><img id="latest-image" src="" alt=""></div>
+          <div class="latest__body">
+            <p class="latest__title" id="latest-title"></p>
+            <button class="btn" type="button" id="latest-open">Écouter l’épisode</button>
+          </div>
+        </aside>
       </div>
     </section>
 
-    <section id="episodes" class="episodes-section editorial-episodes">
-      <header class="editorial-episodes__intro">
-        <h2>Les épisodes</h2>
-        <p>Découvrez nos épisodes sur toutes les plateformes de streaming</p>
-      </header>
-
-      <div class="editorial-episodes__grid" id="episodes-grid">
-        <p class="rss-status">Chargement des épisodes…</p>
+    <div class="guests" aria-label="Nos invités">
+      <div class="guests__track" aria-hidden="true">
+        <span>Karin Viard</span><span>David Foenkinos</span><span>Aurélie Merle</span><span>Laurent Perez del Mar</span><span>Catherine Ceylac</span><span>Jeanne Herry</span><span>Fanny Herrero</span><span>Matthias Dandois</span><span>Mehdi Chaoui</span><span>Gartin 591</span><span>Yzoula</span><span>Simon Bernard</span><span>Maxime Lagarde</span><span>Camille Lorillon</span><span>Juanita Fellag</span><span>Jérôme Delafosse</span>
+        <span>Karin Viard</span><span>David Foenkinos</span><span>Aurélie Merle</span><span>Laurent Perez del Mar</span><span>Catherine Ceylac</span><span>Jeanne Herry</span><span>Fanny Herrero</span><span>Matthias Dandois</span><span>Mehdi Chaoui</span><span>Gartin 591</span><span>Yzoula</span><span>Simon Bernard</span><span>Maxime Lagarde</span><span>Camille Lorillon</span><span>Juanita Fellag</span><span>Jérôme Delafosse</span>
       </div>
-    </section>
+      <p class="sr-only">Parmi nos invités : Karin Viard, David Foenkinos, Aurélie Merle, Laurent Perez del Mar, Catherine Ceylac, Jeanne Herry, Fanny Herrero, Matthias Dandois, Mehdi Chaoui, Gartin 591, Yzoula, Simon Bernard, Maxime Lagarde, Camille Lorillon, Juanita Fellag et Jérôme Delafosse.</p>
+    </div>
 
-    <section id="apropos" class="about-section">
-      <div class="about-card">
-        <div class="about-number">
-  <img src="logo-footer.png" alt="Logo Vingt et Un" class="about-logo">
-</div>
-        <div class="about-copy">
-          <p class="eyebrow">À PROPOS</p>
-          <h2>La vingtaine n’est pas une ligne droite.</h2>
-          <p>
-            <strong>Vingt et Un</strong> est un média et un podcast consacré à cette période
-            étrange où l’on nous répète que tout est possible — alors que chaque choix paraît décisif.
-          </p>
-          <p>
-            Ici, les invités racontent leurs détours, leurs hésitations et les rencontres
-            qui ont changé leur trajectoire. Pas de recette magique, juste des histoires vraies.
-          </p>
+    <!-- PLATEFORMES -->
+    <section id="plateformes" class="section">
+      <div class="wrap">
+        <div class="section-head">
+          <h2 class="display">Où nous écouter</h2>
+          <p>Écoutez le podcast en entier sur les plateformes de streaming. Et les coulisses se passent sur les réseaux&nbsp;!</p>
+        </div>
+
+        <div class="platforms">
+          <a class="platform" href="https://open.spotify.com/show/033HXngvf0fcM9TeI7miMQ" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="#1ED760"/><path d="M17 24.5c10.8-3.1 23.3-2.5 32.7 2" fill="none" stroke="#111" stroke-width="5" stroke-linecap="round"/><path d="M19.5 33c9.1-2.3 19.7-1.8 27.9 1.7" fill="none" stroke="#111" stroke-width="4.4" stroke-linecap="round"/><path d="M22 41c7.3-1.7 15.5-1.2 22 1.4" fill="none" stroke="#111" stroke-width="3.8" stroke-linecap="round"/></svg>
+            <span><small>Écouter sur</small><strong>Spotify</strong></span>
+            <span class="platform__go">Ouvrir ↗</span>
+          </a>
+          <a class="platform" href="https://podcasts.apple.com/fr/podcast/vingt-et-un/id6790472406" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 64 64" aria-hidden="true"><rect x="2" y="2" width="60" height="60" rx="15" fill="#8E44F7"/><circle cx="32" cy="28" r="6" fill="#fff"/><circle cx="32" cy="28" r="13" fill="none" stroke="#fff" stroke-width="3"/><circle cx="32" cy="28" r="20" fill="none" stroke="#fff" stroke-width="3"/><path d="M28 38h8l-1.7 13h-4.6z" fill="#fff"/></svg>
+            <span><small>Écouter sur</small><strong>Apple Podcasts</strong></span>
+            <span class="platform__go">Ouvrir ↗</span>
+          </a>
+          <a class="platform" href="https://www.deezer.com/fr/show/1003405302" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 64 64" aria-hidden="true"><rect x="5" y="38" width="9" height="8" rx="1" fill="#A238FF"/><rect x="16" y="32" width="9" height="14" rx="1" fill="#5A42FF"/><rect x="27" y="25" width="9" height="21" rx="1" fill="#16B8FF"/><rect x="38" y="18" width="9" height="28" rx="1" fill="#FF2D8D"/><rect x="49" y="11" width="9" height="35" rx="1" fill="#FFB000"/></svg>
+            <span><small>Écouter sur</small><strong>Deezer</strong></span>
+            <span class="platform__go">Ouvrir ↗</span>
+          </a>
+          <a class="platform" href="https://www.instagram.com/vingtetun_podcast" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="igGrad" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#FFD600"/><stop offset=".45" stop-color="#FF2D55"/><stop offset="1" stop-color="#833AB4"/></linearGradient></defs><rect x="4" y="4" width="56" height="56" rx="16" fill="url(#igGrad)"/><rect x="16" y="16" width="32" height="32" rx="10" fill="none" stroke="#fff" stroke-width="4"/><circle cx="32" cy="32" r="8" fill="none" stroke="#fff" stroke-width="4"/><circle cx="43" cy="21" r="2.7" fill="#fff"/></svg>
+            <span><small>Nous suivre sur</small><strong>Instagram</strong></span>
+            <span class="platform__go">Ouvrir ↗</span>
+          </a>
+          <a class="platform" href="https://tiktok.com/embed/7659835369017625888" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 64 64" aria-hidden="true"><rect x="4" y="4" width="56" height="56" rx="15" fill="#111"/><path d="M36 16v24.5a9.5 9.5 0 1 1-8-9.4v6a3.6 3.6 0 1 0 2 3.2V16h6z" fill="#25F4EE" transform="translate(-2,1)"/><path d="M39 15c1.2 6 4.7 9.4 10 10.6v6c-4.1-.2-7.6-1.6-10-4v13a9.5 9.5 0 1 1-8-9.4v6a3.6 3.6 0 1 0 2 3.2V15h6z" fill="#FE2C55" transform="translate(2,-1)"/><path d="M37 15c1.2 6 4.7 9.4 10 10.6v4.2c-4.3-.5-7.7-2-10-4.4v15a9.5 9.5 0 1 1-8-9.4v4.4a5.1 5.1 0 1 0 3 4.6V15h5z" fill="#fff"/></svg>
+            <span><small>Nous suivre sur</small><strong>TikTok</strong></span>
+            <span class="platform__go">Ouvrir ↗</span>
+          </a>
+          <a class="platform" href="https://youtube.com/@vingtetun_podcast?si=gaX_BbmQyFtQpf-B" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 64 64" aria-hidden="true"><rect x="4" y="12" width="56" height="40" rx="12" fill="#FF0000"/><path d="M27 23l16 9-16 9z" fill="#fff"/></svg>
+            <span><small>Nous suivre sur</small><strong>YouTube</strong></span>
+            <span class="platform__go">Ouvrir ↗</span>
+          </a>
         </div>
       </div>
     </section>
-    <section id="equipe" class="team-section team-section--photo">
-      <div class="team-visual">
-        <img
-          src="a-propos.jpg"
-          alt="Les deux fondatrices de Vingt et Un au bord de la mer"
-          class="team-visual__photo"
-        >
-        <div class="team-visual__content">
-          <p class="eyebrow">QUI SOMMES-NOUS ?</p>
-          <h2>Derrière<br>Vingt et Un</h2>
-          <div class="team-visual__text">
+
+    <!-- ÉPISODES -->
+    <section id="episodes" class="section">
+      <div class="wrap">
+        <div class="section-head">
+          <h2 class="display">Les épisodes</h2>
+          <p>Du plus récent au plus ancien. Cliquez sur un invité pour lire la présentation complète de l’épisode.</p>
+        </div>
+        <div class="episodes-grid" id="episodes-grid">
+          <p class="rss-status">Chargement des épisodes…</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- LE CONCEPT -->
+    <section id="concept" class="section concept">
+      <div class="wrap">
+        <div class="concept__grid">
+          <h2 class="display">La vingtaine n’est pas une ligne droite.</h2>
+          <div class="concept__text">
             <p>
-              Nous sommes deux jeunes femmes de 21 ans. Dans cette période charnière,
-              aussi excitante que paralysante, nous nous posons toutes les questions
-              propres à cet âge : comment faire les bons choix ? Comment donner du sens
-              à ce que l’on fait ? Comment trouver sa voie et construire sa carrière ?
+              <strong>Vingt et Un</strong> est un média et un podcast consacré à cette période
+              étrange où l’on nous répète que tout est possible, alors que chaque choix paraît décisif.
             </p>
             <p>
-              Alors, nous avons choisi de prendre les 21 ans comme point de départ pour
-              comprendre des parcours professionnels et des choix de vie inspirants.
-              À travers des discussions sincères et informelles, nos invités reviennent
-              sur cette période déterminante, sur les émotions qu’ils ont traversées et
-              sur les décisions qui les ont menés là où ils sont aujourd’hui.
+              Ici, les invités racontent leurs détours, leurs hésitations et les rencontres
+              qui ont changé leur trajectoire. Pas de recette magique, juste des histoires vraies.
             </p>
+          </div>
+        </div>
+        <div class="concept__points">
+          <div>
+            <h3>Un invité</h3>
+            <p>Une personnalité au parcours singulier&nbsp;: artiste, sportif, entrepreneur, avocate, réalisatrice…</p>
+          </div>
+          <div>
+            <h3>21 ans</h3>
+            <p>Le point de départ de chaque conversation&nbsp;: qui étiez-vous à cet âge-là&nbsp;?</p>
+          </div>
+          <div>
+            <h3>Une conversation</h3>
+            <p>Un échange sincère et informel sur les doutes, les choix et ce qui a vraiment compté.</p>
           </div>
         </div>
       </div>
     </section>
-    <section id="suivre" class="social-section">
-      <div>
-        <p class="eyebrow">LES COULISSES DU PODCAST</p>
-        <h2>Retrouve Vingt et Un sur les réseaux</h2>
+
+    <!-- À PROPOS -->
+    <section id="equipe" class="section team">
+      <div class="wrap team__grid">
+        <div class="team__photo">
+          <img src="a-propos.jpg" alt="Les deux fondatrices de Vingt et Un au bord de la mer" loading="lazy">
+        </div>
+        <div>
+          <p class="kicker">Qui sommes-nous&nbsp;?</p>
+          <h2 class="display">Derrière Vingt et Un</h2>
+          <p>
+            Le podcast a été fondé par Benedetta Grenier, étudiante en histoire et en économie,
+            et Selma Herrero, étudiante en droit à la Sorbonne. Toutes les deux se posent
+            la même question&nbsp;: qu’est-ce qu’on va bien faire de notre vie&nbsp;?
+          </p>
+          <p>
+            Nous sommes deux jeunes femmes de 21 ans. Dans cette période charnière,
+            aussi excitante que paralysante, nous nous posons toutes les questions
+            propres à cet âge&nbsp;: comment faire les bons choix&nbsp;? Comment donner du sens
+            à ce que l’on fait&nbsp;? Comment trouver sa voie et construire sa carrière&nbsp;?
+          </p>
+          <p>
+            Alors, nous avons choisi de prendre les 21 ans comme point de départ pour
+            comprendre des parcours professionnels et des choix de vie inspirants.
+            À travers des discussions sincères et informelles, nos invités reviennent
+            sur cette période déterminante, sur les émotions qu’ils ont traversées et
+            sur les décisions qui les ont menés là où ils sont aujourd’hui.
+          </p>
+        </div>
       </div>
-      <div class="social-links">
-        <a href="https://www.instagram.com/vingtetun_podcast" target="_blank" rel="noopener noreferrer"><svg class="brand-icon brand-svg" viewBox="0 0 64 64" aria-hidden="true">
-      <defs><linearGradient id="igGrad" x1="0" y1="1" x2="1" y2="0">
-        <stop offset="0" stop-color="#FFD600"/><stop offset=".45" stop-color="#FF2D55"/><stop offset="1" stop-color="#833AB4"/>
-      </linearGradient></defs>
-      <rect x="4" y="4" width="56" height="56" rx="16" fill="url(#igGrad)"/>
-      <rect x="16" y="16" width="32" height="32" rx="10" fill="none" stroke="#fff" stroke-width="4"/>
-      <circle cx="32" cy="32" r="8" fill="none" stroke="#fff" stroke-width="4"/>
-      <circle cx="43" cy="21" r="2.7" fill="#fff"/>
-    </svg>Instagram ↗</a>
-        <a href="https://tiktok.com/embed/7659835369017625888" target="_blank" rel="noopener noreferrer"><svg class="brand-icon brand-svg" viewBox="0 0 64 64" aria-hidden="true">
-      <rect x="4" y="4" width="56" height="56" rx="15" fill="#111"/>
-      <path d="M36 16v24.5a9.5 9.5 0 1 1-8-9.4v6a3.6 3.6 0 1 0 2 3.2V16h6z" fill="#25F4EE" transform="translate(-2,1)"/>
-      <path d="M39 15c1.2 6 4.7 9.4 10 10.6v6c-4.1-.2-7.6-1.6-10-4v13a9.5 9.5 0 1 1-8-9.4v6a3.6 3.6 0 1 0 2 3.2V15h6z" fill="#FE2C55" transform="translate(2,-1)"/>
-      <path d="M37 15c1.2 6 4.7 9.4 10 10.6v4.2c-4.3-.5-7.7-2-10-4.4v15a9.5 9.5 0 1 1-8-9.4v4.4a5.1 5.1 0 1 0 3 4.6V15h5z" fill="#fff"/>
-    </svg>TikTok ↗</a>
-        <a href="mailto:contact@vingtetun-media.fr">E-mail ↗</a>
+    </section>
+
+    <!-- NOUS CONTACTER -->
+    <section id="contact" class="section contact">
+      <div class="wrap contact__grid">
+        <div>
+          <p class="kicker">Nous contacter</p>
+          <h2 class="display">Une histoire à raconter&nbsp;?</h2>
+        </div>
+        <div>
+          <p class="contact__text">
+            Une idée d’invité, une proposition de partenariat ou simplement un mot sur un épisode&nbsp;:
+            écrivez-nous, on lit tous les messages.
+          </p>
+          <a class="contact__mail" href="mailto:vingtetun.podcast@gmail.com">vingtetun.podcast@gmail.com</a>
+          <div class="contact__actions">
+            <a class="btn btn--light" href="mailto:vingtetun.podcast@gmail.com">Écrire un e-mail</a>
+            <button class="btn btn--ghost" type="button" id="copy-mail">Copier l’adresse</button>
+          </div>
+        </div>
       </div>
     </section>
   </main>
 
-  <footer>
-    <a href="#accueil" class="footer-logo">
-      <img src="logo-footer.png" alt="Logo Vingt et Un" class="footer-logo-image">
-    </a>
-    <p>Vingt et Un — le podcast de la vingtaine.</p>
-    <p>© <span id="year"></span> Vingt et Un</p>
+  <footer class="site-footer">
+    <div class="wrap site-footer__inner">
+      <a href="#accueil" aria-label="Retour en haut"><img src="logo.png" alt="Vingt et Un"></a>
+      <nav aria-label="Réseaux sociaux">
+        <a href="https://www.instagram.com/vingtetun_podcast" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href="https://tiktok.com/embed/7659835369017625888" target="_blank" rel="noopener noreferrer">TikTok</a>
+        <a href="https://youtube.com/@vingtetun_podcast?si=gaX_BbmQyFtQpf-B" target="_blank" rel="noopener noreferrer">YouTube</a>
+        <a href="mailto:vingtetun.podcast@gmail.com">E-mail</a>
+      </nav>
+      <p>© <span id="year"></span> Vingt et Un, le podcast de la vingtaine.</p>
+    </div>
   </footer>
+
+  <!-- FICHE ÉPISODE -->
+  <div class="episode-modal" id="episode-modal" hidden aria-hidden="true">
+    <div class="episode-modal__backdrop" data-close-modal></div>
+    <section class="episode-modal__panel" role="dialog" aria-modal="true" aria-labelledby="episode-modal-title">
+      <button class="episode-modal__close" type="button" data-close-modal aria-label="Fermer">×</button>
+      <div class="episode-modal__top">
+        <img class="episode-modal__image" id="episode-modal-image" src="logo.png" alt="">
+        <div>
+          <p class="episode-modal__eyebrow" id="episode-modal-eyebrow"></p>
+          <h2 class="episode-modal__title" id="episode-modal-title"></h2>
+          <div class="episode-modal__description" id="episode-modal-description"></div>
+        </div>
+      </div>
+      <div class="episode-modal__platforms" id="episode-modal-platforms"></div>
+    </section>
+  </div>
 
   <script>
     /*
       AUTOMATISATION RSS
-      1. Copie l’adresse de ton flux RSS Spotify for Creators.
-      2. Colle-la entre les guillemets ci-dessous à la place de COLLE_TON_FLUX_RSS_ICI.
+      Adresse du flux RSS Spotify for Creators.
     */
     const RSS_FEED_URL = "https://anchor.fm/s/1146e33a8/podcast/rss";
     const RSS_PROXY = "/api/rss?url=";
+    const CONTACT_EMAIL = "vingtetun.podcast@gmail.com";
 
     const platformLinks = {
       spotify: "https://open.spotify.com/show/033HXngvf0fcM9TeI7miMQ",
@@ -1089,9 +828,45 @@
         deezer: ""
       },
       {
+        match: ["théo phulpin", "theo phulpin", "gartin 591", "gartin591"],
+        spotify: "https://open.spotify.com/episode/3DbkuIQpEjOGaOm7q8BfNU?si=1b0e6b7ad4b74463",
+        apple: "https://podcasts.apple.com/fr/podcast/vingt-et-un/id6790472406?i=1000791264243",
+        deezer: ""
+      },
+      {
         match: ["jeanne herry"],
+        spotify: "https://open.spotify.com/episode/2fozgUA7NCRce8HopP0yW4?si=_8gpXeLARL-iqJjq71XhGg&utm_source=copy-link",
+        apple: "https://podcasts.apple.com/fr/podcast/vingt-et-un/id6790472406?i=1000789760506",
+        deezer: "https://link.deezer.com/s/34pGwtMwFobfckZZ7InWk"
+      },
+      {
+        match: ["aurélie merle", "aurelie merle"],
+        spotify: "https://open.spotify.com/episode/1z1FLqUv0abKb7MlHIcyuJ?si=Rxl3wdu4SASHedGN8vlH3Q",
+        apple: "https://podcasts.apple.com/fr/podcast/vingt-et-un/id6790472406?i=1000796130857",
+        deezer: "https://link.deezer.com/s/34FMygwcgjSVMXylAlpSG"
+      },
+      {
+        match: ["catherine ceylac", "ceylac"],
         spotify: "",
         apple: "",
+        deezer: ""
+      },
+      {
+        match: ["laurent perez del mar", "perez del mar"],
+        spotify: "",
+        apple: "",
+        deezer: ""
+      },
+      {
+        match: ["david foenkinos", "foenkinos"],
+        spotify: "https://open.spotify.com/episode/2zy6Zhj2ARfQmPakToRUqZ?si=8uSmtdb8QNuULvS35BuSAQ",
+        apple: "https://podcasts.apple.com/fr/podcast/vingt-et-un/id6790472406?i=1000797265664",
+        deezer: "https://link.deezer.com/s/34JgwYyb1qHxCppVRd6gg"
+      },
+      {
+        match: ["karin viard", "viard"],
+        spotify: "https://open.spotify.com/episode/2I8xucZsjOna49WrsCglC4?si=iByKaMI6SSu4l8d9VZo6Ew",
+        apple: "https://podcasts.apple.com/fr/podcast/vingt-et-un/id6790472406?i=1000799098369",
         deezer: ""
       }
     ];
@@ -1102,35 +877,119 @@
       mehdi: "À 21 ans, Mehdi a troqué son diplôme à Dauphine pour se consacrer pleinement au poker. Aujourd’hui, il a remporté plusieurs millions d’euros depuis le début de sa carrière. Dans cet épisode, au-delà de nous faire découvrir un peu mieux le vaste monde du poker, Mehdi nous invite à envisager ce jeu différemment et à déconstruire certaines idées reçues qui l’entourent. Mais la discussion va bien au-delà du poker. Nous avons parlé de la vision de la réussite selon nos parents, de confiance en soi, du sentiment de légitimité dans son métier, de la prise de risque, mais aussi d’une question plus large : comment rester heureux tout au long de sa vie ?",
       matthias: "À 12 ans, Matthias découvre le BMX. Depuis, il n’a jamais vraiment lâché son guidon. Ce qui commence comme une passion devient peu à peu une véritable vocation, jusqu’à faire de lui l’une des figures les plus titrées du BMX Flat, avec dix titres de champion du monde. Dans cet épisode, Matthias nous plonge dans un univers où le sport rencontre la créativité, où chaque figure demande des heures de travail et où quelques secondes peuvent suffire à départager des années d’entraînement. Mais surtout, nous sommes revenus sur sa vingtaine rock’n’roll : les voyages, les compétitions, les victoires, mais aussi les doutes et la pression permanente du résultat lorsqu’une passion devient un métier. On parle de son rapport à la compétition, de la peur de l’échec, des sacrifices nécessaires pour atteindre le plus haut niveau, mais aussi de l’importance des choix que l’on fait à 20 ans, à un âge où l’on ne sait pas encore vraiment où ils nous mèneront. Une conversation autour du sport, bien sûr, mais surtout autour de la passion, de l’ambition, de la liberté et de cette drôle de période qu’est la vingtaine.",
       fanny: "Découvrez notre nouvel épisode avec Fanny Herrero, scénariste de la fameuse série Dix pour Cent. Fanny revient sur son parcours, sa jeunesse, et cette période où elle rêvait de devenir actrice. Puis sur la découverte de l'écriture : comment elle s'est imposée à elle, comment elle a trouvé sa place dans ce métier et ce qu'elle y cherche encore aujourd'hui. On parle beaucoup de sa relation aux personnages. De cette manière parfois très intime de les accompagner, de les comprendre, de leur prêter des choses de soi tout en leur laissant leur propre liberté. Et de l'écriture comme d'un espace thérapeutique, un endroit où l'on peut mettre en mots ce qui nous traverse, essayer de comprendre ce que l'on vit et, parfois, réparer quelque chose. Mais écrire n'est pas seulement une manière de se comprendre soi-même. Pour Fanny, l'écriture peut aussi être un pouvoir : celui de changer le réel. De modifier les représentations, de faire exister d'autres récits, d'autres personnages, d'autres façons de regarder le monde. On parle aussi de la réalité très concrète du métier de scénariste. De cette nécessité de produire, d'écrire vite, de « délivrer », de répondre aux contraintes et aux attentes... et de la tension permanente entre cette réalité professionnelle et le désir de raconter quelque chose qui nous ressemble. Une conversation sur la vocation, le désir d'écrire, les personnages, le travail, le pouvoir des récits et cette question qui traverse tout l'épisode : qu'est-ce qu'on peut réellement changer quand on raconte des histoires ?",
-      frederique: `Après une classe préparatoire, Avocate de Guy Georges vise HEC. Elle n’intègre pas l’école et se tourne presque par défaut vers le droit. Sur les bancs de la fac, elle découvre pourtant ce qui deviendra la passion de toute une vie : la défense pénale. Avocate pénaliste, habituée des cours d’assises et des grands dossiers, elle a notamment été l’une des avocates de Guy Georges. Dans cet épisode, Avocate de Guy Georges revient sur ses études, ses premiers stages et ses débuts au barreau, mais aussi sur les coulisses d’une profession aussi exigeante que fascinante : la charge de travail, la pression, les assises, la relation avec les clients et ce que signifie défendre lorsque tout semble indéfendable. Une conversation sur la vocation, la justice, l’engagement et l’amour viscéral de la défense.`,
-      jeanne: `Jeanne Herry est réalisatrice, notamment connue pour Pupille et Je verrai toujours vos visages. Dans cet épisode, elle revient sur sa vingtaine, une période où elle se destinait encore au métier d’actrice, avant de trouver progressivement sa place derrière la caméra. Nous avons parlé du temps qui passe, de la réussite, de la peur de rater sa vie et de la manière dont le travail est devenu pour elle un véritable espace d’accomplissement. Jeanne nous ouvre aussi les coulisses de son métier : comment naît un film, ce qui lui donne envie de s’emparer d’un sujet, son processus de création, son rapport aux acteurs et cette position particulière de la réalisatrice, qu’elle compare à celle d’un chef d’orchestre : au centre de tout, mais de dos face au public. Une conversation sur le cinéma, la création, le travail et, surtout, la manière dont on finit par trouver sa place.`
+      frederique: `Après une classe préparatoire, Frédérique Pons vise HEC. Elle n’intègre pas l’école et se tourne presque par défaut vers le droit. Sur les bancs de la fac, elle découvre pourtant ce qui deviendra la passion de toute une vie : la défense pénale. Avocate pénaliste, habituée des cours d’assises et des grands dossiers, elle a notamment été l’une des avocates de Guy Georges. Dans cet épisode, Frédérique Pons revient sur ses études, ses premiers stages et ses débuts au barreau, mais aussi sur les coulisses d’une profession aussi exigeante que fascinante : la charge de travail, la pression, les assises, la relation avec les clients et ce que signifie défendre lorsque tout semble indéfendable. Une conversation sur la vocation, la justice, l’engagement et l’amour viscéral de la défense.`,
+      jeanne: `Jeanne Herry est réalisatrice, notamment connue pour Pupille et Je verrai toujours vos visages. Dans cet épisode, elle revient sur sa vingtaine, une période où elle se destinait encore au métier d’actrice, avant de trouver progressivement sa place derrière la caméra. Nous avons parlé du temps qui passe, de la réussite, de la peur de rater sa vie et de la manière dont le travail est devenu pour elle un véritable espace d’accomplissement. Jeanne nous ouvre aussi les coulisses de son métier : comment naît un film, ce qui lui donne envie de s’emparer d’un sujet, son processus de création, son rapport aux acteurs et cette position particulière de la réalisatrice, qu’elle compare à celle d’un chef d’orchestre : au centre de tout, mais de dos face au public. Une conversation sur le cinéma, la création, le travail et, surtout, la manière dont on finit par trouver sa place.`,
+      gartin: `À 21 ans, Théo Phulpin, alias Gartin 591, était encore étudiant en troisième année de droit. Deux ans plus tard, il a quitté les amphithéâtres et les bancs de la fac pour se consacrer pleinement à la création de contenu. Aujourd’hui, à seulement 23 ans, il réunit plus d’un million d’abonnés sur les réseaux sociaux.
+
+Mais derrière les chiffres, les vues et les vidéos, il y a surtout un garçon qui semble porter en lui mille vies à la fois. Les échecs, la natation, Clash Royale, l’éloquence, l’humour, le droit… Théo avance au gré de ses curiosités, comme on ouvre des portes sans toujours savoir ce qu’elles cachent. Il essaie, apprend, se passionne, se lasse parfois, puis recommence ailleurs.
+
+Comme beaucoup à cet âge, Théo continue de se chercher, de questionner ses choix et de démêler ses désirs de tout ce que l’on attend de lui. Mais il a fait un choix audacieux : mettre entre parenthèses la voie toute tracée, les diplômes et certaines injonctions sociales pour s’offrir le droit de découvrir la suite en la vivant pleinement.
+
+🚣 Dans cet épisode, tourné sur une barque (avec quelques difficultés à rester à flot), nous parlons de la pression des études, de la peur d’abandonner une voie rassurante, de son rapport à la compétition et à la réussite. Nous évoquons aussi ce que les réseaux sociaux changent lorsqu’ils deviennent un métier, lorsque l’intime se transforme en contenu et que la frontière entre vie publique et vie privée commence doucement à s’effacer.
+
+🎙️ Nous parlons d’amour à 20 ans, de cette impression d’être parfois en retard, de confiance en soi et de cette drôle de période où l’on nous demande de bâtir notre avenir alors que nous sommes encore en train de nous construire nous-mêmes.`,
+      aurelie: `Comment passe-t-on des enquêtes sur les crimes de guerre à l'organisation des Jeux olympiques ? C'est le parcours singulier d'Aurélie Merle, notre nouvelle invitée.
+
+Après plus de dix ans dans les enquêtes pénales internationales — crimes de guerre, terrorisme —, Aurélie change radicalement d'univers en rejoignant les Jeux olympiques de Londres 2012, avant de devenir directrice exécutive des Sports du Comité d'organisation des JO et paralympiques de Paris 2024.
+
+Dans cet épisode, elle nous plonge dans deux mondes que tout semble opposer : les coulisses de la Cour pénale internationale et les défis d'organisation d'un événement planétaire. Mais surtout, son parcours est une leçon sur les choix, les opportunités et notre capacité à nous réinventer.
+
+À 20 ans, on a parfois l'impression qu'il faut choisir une voie et s'y tenir. Aurélie nous rappelle l'inverse : une carrière n'est pas linéaire, nos expériences ne nous enferment pas, et changer de direction ne signifie jamais repartir de zéro.
+
+🎙️ Un épisode pour tous ceux qui ont peur de faire les mauvais choix ou de ne pas encore savoir ce qu'ils veulent faire de leur vie.`,
+      catherine: `Catherine Ceylac est l'une des grandes voix du journalisme français. Pendant plus de vingt ans, elle a reçu dans « Thé ou café » sur France 2 des centaines de personnalités, avec cette capacité rare à faire parler les gens de leur intimité sans jamais tomber dans le voyeurisme. Un entretien, une tasse, une parole libre : elle a inventé un format qui a marqué la télévision française.
+
+Dans cet épisode, Catherine revient sur sa propre vingtaine : ses débuts dans un métier encore très masculin, ses doutes, les rencontres qui l'ont construite et la manière dont elle a appris à écouter — vraiment écouter. Elle nous parle de la curiosité comme boussole, de la patience nécessaire pour durer dans un métier d'exposition, et de ce que l'âge apporte à l'exercice de l'interview.
+
+Au fil de la conversation, c'est aussi une réflexion sur le temps long, sur la transmission entre générations de journalistes, et sur ce que signifie faire de la télévision quand on refuse la facilité du sensationnel.
+
+🎙️ Un épisode pour tous ceux qui veulent apprendre à écouter, à poser la bonne question, et à construire une carrière sur le temps long.`,
+      laurent: `Laurent Perez del Mar est compositeur de musiques de films. Derrière des œuvres comme La Tortue rouge, Calamity ou encore de nombreux documentaires, il signe des bandes originales qui savent dire ce que les images taisent.
+
+Dans cet épisode, Laurent revient sur sa vocation, née très tôt, et sur le chemin — fait de doutes, de rencontres et de persévérance — qui l'a mené à vivre de sa musique. On parle de ce que c'est que composer pour l'image, de la relation intime avec les réalisateurs, de la place laissée au silence et de la manière dont une mélodie peut porter un film.
+
+Au-delà du métier, c'est une conversation sur la vocation, sur la patience nécessaire pour exister dans un milieu artistique, et sur la liberté que l'on finit par trouver quand on reste fidèle à ce qui nous anime vraiment.
+
+🎙️ Un épisode pour celles et ceux qui cherchent leur voie et qui doutent de pouvoir vivre d'une passion artistique.`,
+      david: `Cette semaine, Vingt et Un reçoit l’un des écrivains les plus lus de sa génération. 21 romans, plus de 6 millions d’exemplaires vendus à travers le monde : David Foenkinos est l’un des auteurs préférés des jeunes lecteurs. Chacun de ses livres est une caresse littéraire, un refuge, une petite pause dans nos vies qui vont trop vite.
+
+Pourtant, devenir le grand écrivain qu’il est aujourd’hui n’a jamais été son ambition. Et ça lui allait très bien.
+
+Tout commence à 16 ans, sur un lit d’hôpital. Une expérience de mort imminente, de longs mois d’hospitalisation, et tout bascule : son rapport à sa propre sensibilité, et surtout à l’écriture. Devenu boulimique de culture, il revient avec nous sur ces années qui ont façonné sa vingtaine, quand il écrivait seul dans sa chambre, sans jamais rien faire lire à personne.
+
+Dans cet épisode, on parle du grand paradoxe de la vingtaine : chercher l’adresse de son avenir sans avoir le plan. On parle aussi du lien que chacun de nous entretient avec l’écriture… et de l’arrivée de l’IA dans le monde de la littérature.
+
+🎙️ Un épisode doux et lumineux, pour tous ceux qui écrivent en secret, qui doutent, ou qui cherchent encore leur chemin.`,
+      karin: `Cette semaine, Vingt et Un accueille Karin Viard, l’une des actrices les plus marquantes du cinéma français. Césarisée, saluée par le public comme par la critique, elle fait partie de ces visages que l’on reconnaît immédiatement à l’écran.
+
+Pourtant, rien ne lui a été donné d’emblée. Sa vingtaine a été une décennie aussi exaltante que douloureuse, tout entière tournée vers un seul rêve : devenir actrice. Un rêve pour lequel elle s’était fixé une échéance : dix ans pour réussir.
+
+Elle revient avec nous sur ces débuts compliqués : les petits boulots pour tenir, les refus, l’attente, et ce sentiment de ne pas trouver sa place dans la jeunesse parisienne. On parle des contradictions de la vingtaine, où tout semble possible mais rien n’est acquis, des relations amoureuses à cet âge, de la réalité du métier d’actrice et de la vie qui nous surprend rarement là où on l’attendait.
+
+Elle évoque aussi le manque de légitimité ressenti en recevant son premier César, son rapport au regard des autres, dont elle se fiche aujourd’hui, et une idée reçue : les acteurs ne s’aiment pas forcément.
+
+🎙️ Une conversation sur la persévérance, les doutes et les chemins que l’on poursuit sans toujours savoir où ils nous mèneront.`,
+    };
+
+    // Première phrase affichée sur la carte (le reste est dans « Lire la suite »)
+    const episodeIntros = {
+      yzoula: "Découvrez Yzoula, qui fait ses débuts au sein du groupe La Femme.",
+      mehdi: "À 21 ans, Mehdi a troqué son diplôme à Dauphine pour se consacrer pleinement au poker.",
+      matthias: "À 12 ans, Matthias découvre le BMX. Depuis, il n’a jamais vraiment lâché son guidon.",
+      fanny: "Découvrez notre nouvel épisode avec Fanny Herrero, scénariste de la fameuse série Dix pour Cent.",
+      frederique: "Après une classe préparatoire, Frédérique Pons vise HEC. Elle n’intègre pas l’école et se tourne presque par défaut vers le droit.",
+      jeanne: "Jeanne Herry, réalisatrice de Pupille et Je verrai toujours vos visages, revient sur sa vingtaine et sur le chemin qui l’a menée du désir d’être actrice à la réalisation.",
+      gartin: "À 21 ans, Théo Phulpin, alias Gartin 591, était encore étudiant en troisième année de droit.",
+      aurelie: "Des enquêtes sur les crimes de guerre à l'organisation des Jeux olympiques de Paris 2024 : le parcours d'une femme qui n'a jamais cessé de se réinventer.",
+      catherine: "Pendant plus de vingt ans à la tête de « Thé ou café » sur France 2, Catherine Ceylac a reçu les plus grands. Elle revient sur sa vingtaine et sur l'art d'écouter.",
+      laurent: "Laurent Perez del Mar, compositeur de musiques de films, revient sur sa vocation et sur ce que c'est que mettre en musique les émotions des autres.",
+      karin: "Césarisée, saluée par le public comme par la critique, Karin Viard s’était pourtant donné dix ans pour réussir. Elle revient sur une vingtaine aussi exaltante que douloureuse.",
+      david: "À 16 ans, il frôle la mort. À 20 ans, il écrit seul dans sa chambre. Aujourd’hui, David Foenkinos est l’un des auteurs les plus lus de France."
+    };
+
+    // Clé éditoriale d'un épisode à partir de son titre
+    const editorialKey = (normalizedTitle) => {
+      if (normalizedTitle.includes("yzoula")) return "yzoula";
+      if (normalizedTitle.includes("mehdi chaoui") || normalizedTitle.includes("medhi chaoui")) return "mehdi";
+      if (normalizedTitle.includes("matthias dandois")) return "matthias";
+      if (normalizedTitle.includes("fanny herrero")) return "fanny";
+      if (normalizedTitle.includes("frederique pons") || normalizedTitle.includes("avocate de guy georges")) return "frederique";
+      if (normalizedTitle.includes("jeanne herry")) return "jeanne";
+      if (normalizedTitle.includes("theo phulpin") || normalizedTitle.includes("gartin 591") || normalizedTitle.includes("gartin591")) return "gartin";
+      if (normalizedTitle.includes("aurelie merle")) return "aurelie";
+      if (normalizedTitle.includes("catherine ceylac") || normalizedTitle.includes("ceylac")) return "catherine";
+      if (normalizedTitle.includes("laurent perez del mar") || normalizedTitle.includes("perez del mar")) return "laurent";
+      if (normalizedTitle.includes("foenkinos")) return "david";
+      if (normalizedTitle.includes("karin viard") || normalizedTitle.includes("viard")) return "karin";
+      return "";
+    };
+
+    const localImages = {
+      gartin: "gartin591.jpg",
+      jeanne: "jeanne-herry.png",
+      fanny: "fanny-herrero.png",
+      aurelie: "aurelie-merle.jpg",
+      catherine: "catherine-ceylac.jpg",
+      laurent: "laurent-perez-del-mar.jpg",
+      david: "david-foenkinos.jpg",
+      karin: "karin-viard.jpg"
     };
 
     const normalizeTitle = (value = "") =>
-      value
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .toLowerCase();
+      value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+
+    const escapeHtml = (value = "") =>
+      String(value).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
     const getPlatformLinksForEpisode = (title, item) => {
       const normalizedTitle = normalizeTitle(title);
       const found = episodeLinks.find((episode) =>
         episode.match.some((name) => normalizedTitle.includes(normalizeTitle(name)))
       );
-
       if (found) {
-        return {
-          spotify: found.spotify || item.link || "",
-          apple: found.apple || "",
-          deezer: found.deezer || ""
-        };
+        return { spotify: found.spotify || item.link || "", apple: found.apple || "", deezer: found.deezer || "" };
       }
-
-      return {
-        spotify: item.link || platformLinks.spotify,
-        apple: platformLinks.apple,
-        deezer: platformLinks.deezer
-      };
+      return { spotify: item.link || platformLinks.spotify, apple: platformLinks.apple, deezer: platformLinks.deezer };
     };
 
     const cleanText = (html = "") => {
@@ -1139,126 +998,143 @@
       return (temp.textContent || temp.innerText || "").trim();
     };
 
-    const truncate = (text, max = 220) =>
-      text.length > max ? `${text.slice(0, max).trim()}…` : text;
+    const truncateAtWord = (text, max = 170) => {
+      if (text.length <= max) return text;
+      const cut = text.slice(0, max);
+      return cut.slice(0, cut.lastIndexOf(" ")).trim() + "…";
+    };
 
     const formatDate = (dateString) => {
       if (!dateString) return "";
       const date = new Date(dateString);
       if (Number.isNaN(date.getTime())) return "";
-      return new Intl.DateTimeFormat("fr-FR", {
-        day: "numeric",
-        month: "long",
-        year: "numeric"
-      }).format(date);
+      return new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long", year: "numeric" }).format(date);
     };
 
-    const getEpisodeImage = (item, feed) => {
-      return (
-        item.thumbnail ||
-        item.enclosure?.thumbnail ||
-        item.enclosure?.link ||
-        feed.image ||
-        "logo.png"
-      );
+    // « Nom — Rôle » est séparé en deux lignes pour plus de clarté
+    const splitTitle = (title) => {
+      const parts = title.split(/\s+[—–-]\s+/);
+      return parts.length > 1
+        ? { name: parts[0].trim(), role: parts.slice(1).join(" — ").trim() }
+        : { name: title, role: "" };
     };
 
-    const getEpisodeLink = (item) => item.link || platformLinks.spotify;
+    const episodeSlug = (title = "") => normalizeTitle(title).replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 
-    const createEpisodeCard = (item, index, feed) => {
+    const icons = {
+      spotify: `<svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="#1ED760"/><path d="M17 24.5c10.8-3.1 23.3-2.5 32.7 2" fill="none" stroke="#111" stroke-width="5" stroke-linecap="round"/><path d="M19.5 33c9.1-2.3 19.7-1.8 27.9 1.7" fill="none" stroke="#111" stroke-width="4.4" stroke-linecap="round"/><path d="M22 41c7.3-1.7 15.5-1.2 22 1.4" fill="none" stroke="#111" stroke-width="3.8" stroke-linecap="round"/></svg>`,
+      apple: `<svg viewBox="0 0 64 64" aria-hidden="true"><rect x="2" y="2" width="60" height="60" rx="15" fill="#8E44F7"/><circle cx="32" cy="28" r="6" fill="#fff"/><circle cx="32" cy="28" r="13" fill="none" stroke="#fff" stroke-width="3"/><circle cx="32" cy="28" r="20" fill="none" stroke="#fff" stroke-width="3"/><path d="M28 38h8l-1.7 13h-4.6z" fill="#fff"/></svg>`,
+      deezer: `<svg viewBox="0 0 64 64" aria-hidden="true"><rect x="5" y="38" width="9" height="8" rx="1" fill="#A238FF"/><rect x="16" y="32" width="9" height="14" rx="1" fill="#5A42FF"/><rect x="27" y="25" width="9" height="21" rx="1" fill="#16B8FF"/><rect x="38" y="18" width="9" height="28" rx="1" fill="#FF2D8D"/><rect x="49" y="11" width="9" height="35" rx="1" fill="#FFB000"/></svg>`
+    };
+    const platformLabels = { spotify: "Spotify", apple: "Apple Podcasts", deezer: "Deezer" };
+
+    const pillsHtml = (links, title) =>
+      ["spotify", "apple", "deezer"]
+        .filter((type) => links[type])
+        .map((type) =>
+          `<a class="pill" href="${escapeHtml(links[type])}" target="_blank" rel="noopener noreferrer" aria-label="Écouter ${escapeHtml(title)} sur ${platformLabels[type]}">${icons[type]}<span>${platformLabels[type]}</span></a>`
+        ).join("");
+
+    const episodeRegistry = new Map();
+
+    const shareUrlForEpisode = (slug) => {
+      const url = new URL(window.location.href);
+      url.searchParams.set("episode", slug);
+      url.hash = "episodes";
+      return url.toString();
+    };
+
+    let lastFocused = null;
+
+    const openEpisodeModal = (slug, updateUrl = true) => {
+      const data = episodeRegistry.get(slug);
+      if (!data) return;
+      lastFocused = document.activeElement;
+      const modal = document.getElementById("episode-modal");
+      const { name, role } = splitTitle(data.title);
+
+      document.getElementById("episode-modal-eyebrow").textContent =
+        `Épisode ${data.number}${data.date ? ", " + data.date : ""}`;
+      document.getElementById("episode-modal-title").textContent = name;
+      document.getElementById("episode-modal-description").innerHTML =
+        (role ? `<p><strong>${escapeHtml(role)}</strong></p>` : "") +
+        data.description.split(/\n\s*\n/).map((p) => `<p>${escapeHtml(p.trim())}</p>`).join("");
+      const img = document.getElementById("episode-modal-image");
+      img.src = data.image || "logo.png";
+      img.alt = name;
+
+      const links = {
+        spotify: data.links.spotify || platformLinks.spotify,
+        apple: data.links.apple || platformLinks.apple,
+        deezer: data.links.deezer || platformLinks.deezer
+      };
+      document.getElementById("episode-modal-platforms").innerHTML =
+        pillsHtml(links, data.title) +
+        `<button class="btn btn--ghost episode-modal__share" type="button" id="episode-modal-share">Copier le lien de l’épisode</button>`;
+
+      document.getElementById("episode-modal-share").addEventListener("click", async (event) => {
+        const shareUrl = shareUrlForEpisode(slug);
+        const btn = event.currentTarget;
+        try {
+          await navigator.clipboard.writeText(shareUrl);
+          btn.textContent = "Lien copié ✓";
+          setTimeout(() => (btn.textContent = "Copier le lien de l’épisode"), 1600);
+        } catch (_) {
+          window.prompt("Copiez ce lien :", shareUrl);
+        }
+      });
+
+      modal.hidden = false;
+      modal.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+      modal.querySelector(".episode-modal__close").focus();
+      if (updateUrl) history.replaceState({}, "", shareUrlForEpisode(slug));
+    };
+
+    const closeEpisodeModal = () => {
+      const modal = document.getElementById("episode-modal");
+      if (modal.hidden) return;
+      modal.hidden = true;
+      modal.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+      const url = new URL(window.location.href);
+      url.searchParams.delete("episode");
+      history.replaceState({}, "", url.pathname + url.search + "#episodes");
+      if (lastFocused) lastFocused.focus();
+    };
+
+    const createEpisodeCard = (item, index) => {
       const title = cleanText(item.title || `Épisode ${index + 1}`);
       const normalizedTitle = normalizeTitle(title);
-      const customDescription =
-        normalizedTitle.includes("yzoula") ? episodeDescriptionOverrides.yzoula :
-        normalizedTitle.includes("mehdi chaoui") || normalizedTitle.includes("medhi chaoui") ? episodeDescriptionOverrides.mehdi :
-        normalizedTitle.includes("matthias dandois") ? episodeDescriptionOverrides.matthias :
-        normalizedTitle.includes("fanny herrero") ? episodeDescriptionOverrides.fanny :
-        normalizedTitle.includes("frédérique pons") || normalizedTitle.includes("frederique pons") ? episodeDescriptionOverrides.frederique :
-        normalizedTitle.includes("jeanne herry") ? episodeDescriptionOverrides.jeanne :
-        "";
-      const description = customDescription || cleanText(item.description || item.content || "");
-      const specialIntro =
-        normalizedTitle.includes("yzoula") ? "Découvrez Yzoula, qui fait ses débuts au sein du groupe La Femme." :
-        normalizedTitle.includes("mehdi chaoui") || normalizedTitle.includes("medhi chaoui") ? "À 21 ans, Mehdi a troqué son diplôme à Dauphine pour se consacrer pleinement au poker." :
-        normalizedTitle.includes("matthias dandois") ? "À 12 ans, Matthias découvre le BMX. Depuis, il n’a jamais vraiment lâché son guidon." :
-        normalizedTitle.includes("fanny herrero") ? "Découvrez notre nouvel épisode avec Fanny Herrero, scénariste de la fameuse série Dix pour Cent." :
-        normalizedTitle.includes("frédérique pons") || normalizedTitle.includes("frederique pons") ? "Après une classe préparatoire, Avocate de Guy Georges vise HEC. Elle n’intègre pas l’école et se tourne presque par défaut vers le droit." :
-        normalizedTitle.includes("jeanne herry") ? "Jeanne Herry, réalisatrice de Pupille et Je verrai toujours vos visages, revient sur sa vingtaine et sur le chemin qui l’a menée du désir d’être actrice à la réalisation." :
-        "";
-      const shortDescription = specialIntro || truncate(description, 175);
-      const remainingDescription = specialIntro
-        ? description.slice(specialIntro.length).trim()
-        : (description.length > 175 ? description.slice(175).trim() : "");
-      const image =
-        normalizedTitle.includes("jeanne herry") ? "jeanne-herry.png" :
-        normalizedTitle.includes("fanny herrero") ? "fanny-herrero.png" :
-        (item.thumbnail || "");
+      const key = editorialKey(normalizedTitle);
+      const description = (key && episodeDescriptionOverrides[key]) || cleanText(item.description || item.content || "");
+      const shortDescription = (key && episodeIntros[key]) || truncateAtWord(description, 170);
+      const image = (key && localImages[key]) || item.thumbnail || "";
       const directLinks = getPlatformLinksForEpisode(title, item);
       const number = String(item.episodeNumber || index + 1).padStart(2, "0");
+      const date = formatDate(item.pubDate);
+      const { name, role } = splitTitle(title);
+      const slug = episodeSlug(title);
 
-      const inlinePlatformIcons = {
-        spotify: `<svg class="brand-icon brand-svg" viewBox="0 0 64 64" aria-hidden="true">
-      <circle cx="32" cy="32" r="30" fill="#1ED760"/>
-      <path d="M17 24.5c10.8-3.1 23.3-2.5 32.7 2" fill="none" stroke="#111" stroke-width="5" stroke-linecap="round"/>
-      <path d="M19.5 33c9.1-2.3 19.7-1.8 27.9 1.7" fill="none" stroke="#111" stroke-width="4.4" stroke-linecap="round"/>
-      <path d="M22 41c7.3-1.7 15.5-1.2 22 1.4" fill="none" stroke="#111" stroke-width="3.8" stroke-linecap="round"/>
-    </svg>`,
-        apple: `<svg class="brand-icon brand-svg" viewBox="0 0 64 64" aria-hidden="true">
-      <rect x="2" y="2" width="60" height="60" rx="15" fill="#8E44F7"/>
-      <circle cx="32" cy="28" r="6" fill="#fff"/>
-      <circle cx="32" cy="28" r="13" fill="none" stroke="#fff" stroke-width="3"/>
-      <circle cx="32" cy="28" r="20" fill="none" stroke="#fff" stroke-width="3"/>
-      <path d="M28 38h8l-1.7 13h-4.6z" fill="#fff"/>
-    </svg>`,
-        deezer: `<svg class="brand-icon brand-svg" viewBox="0 0 64 64" aria-hidden="true">
-      <rect x="5" y="38" width="9" height="8" rx="1" fill="#A238FF"/>
-      <rect x="16" y="32" width="9" height="14" rx="1" fill="#5A42FF"/>
-      <rect x="27" y="25" width="9" height="21" rx="1" fill="#16B8FF"/>
-      <rect x="38" y="18" width="9" height="28" rx="1" fill="#FF2D8D"/>
-      <rect x="49" y="11" width="9" height="35" rx="1" fill="#FFB000"/>
-    </svg>`
-      };
-
-      const platformRow = (type, href, label, extraClass = "") => {
-        if (!href) return "";
-        return `
-          <a class="episode-platform-row ${type}-row ${extraClass}" href="${href}" target="_blank" rel="noopener noreferrer" aria-label="Écouter ${title.replace(/"/g, '&quot;')} sur ${label}">
-            <span class="episode-platform-brand">
-              ${inlinePlatformIcons[type] || ""}
-              <span class="episode-platform-name">${label}</span>
-            </span>
-            <span class="episode-listen-action">Écouter</span>
-          </a>`;
-      };
+      episodeRegistry.set(slug, { title, description, image, links: directLinks, number, date, slug });
 
       const article = document.createElement("article");
-      article.className = "editorial-card";
+      article.className = "ep";
       article.innerHTML = `
-        <div class="episode-image editorial-card__media ${normalizedTitle.includes("mehdi chaoui") || normalizedTitle.includes("medhi chaoui") ? "mehdi-photo" : ""}" role="img" aria-label="${title.replace(/"/g, '&quot;')}" style="background-image:url('${image.replace(/'/g, "%27")}')">
-          <span class="editorial-card__number">${number}</span>
+        <div class="ep__media">
+          ${image ? `<img src="${escapeHtml(image)}" alt="${escapeHtml(name)}" loading="lazy">` : ""}
         </div>
-        <div class="editorial-card__body">
-          <div class="episode-heading">
-            ${item.pubDate ? `<p class="editorial-card__date">Épisode ${number} · ${formatDate(item.pubDate)}</p>` : `<p class="editorial-card__date">Épisode ${number}</p>`}
-            <h3 class="editorial-card__name">${title}</h3>
-          </div>
-          ${shortDescription ? `
-            <div class="episode-description-wrap">
-              <p class="editorial-card__description">${shortDescription}</p>
-              ${remainingDescription ? `
-                <details>
-                  <summary><span class="show-more">Afficher plus</span><span class="show-less">Réduire</span></summary>
-                  <p class="editorial-card__more">${remainingDescription}</p>
-                </details>` : ""}
-            </div>` : ""}
-          <footer class="editorial-card__footer">
-            <nav class="episode-platform-list" aria-label="Plateformes d’écoute pour ${title.replace(/"/g, '&quot;')}">
-              ${platformRow("spotify", directLinks.spotify, "Spotify")}
-              ${platformRow("apple", directLinks.apple, "Apple Podcasts")}
-              ${platformRow("deezer", directLinks.deezer, "Deezer")}
-            </nav>
-          </footer>
-        </div>`;
+        <p class="ep__meta"><span>Épisode ${number}</span><span>${date}</span></p>
+        <h3 class="ep__title"><button type="button">${escapeHtml(name)}</button></h3>
+        ${role ? `<p class="ep__role">${escapeHtml(role)}</p>` : ""}
+        ${shortDescription ? `<p class="ep__desc">${escapeHtml(shortDescription)}</p>` : ""}
+        ${description.length > shortDescription.length + 10 ? `<button class="ep__more" type="button">Lire la suite</button>` : ""}
+        <div class="ep__listen">${pillsHtml(directLinks, title)}</div>`;
+
+      article.addEventListener("click", (event) => {
+        if (event.target.closest("a")) return;
+        openEpisodeModal(slug);
+      });
       return article;
     };
 
@@ -1330,7 +1206,7 @@
       },
       {
         episodeNumber: 10,
-        title: "Avocate de Guy Georges — Avocate pénaliste",
+        title: "Frédérique Pons — Avocate de Guy Georges",
         description: episodeDescriptionOverrides.frederique,
         thumbnail: "frederique-pons.jpg",
         link: ""
@@ -1341,6 +1217,54 @@
         description: episodeDescriptionOverrides.jeanne,
         thumbnail: "jeanne-herry.png",
         link: ""
+      },
+      {
+        episodeNumber: 12,
+        title: "Théo Phulpin, alias Gartin 591 : quitter le droit pour vivre des réseaux",
+        description: episodeDescriptionOverrides.gartin,
+        thumbnail: "gartin591.jpg",
+        link: "https://open.spotify.com/episode/3DbkuIQpEjOGaOm7q8BfNU?si=1b0e6b7ad4b74463",
+        pubDate: "2026-09-23"
+      },
+      {
+        episodeNumber: 13,
+        title: "Catherine Ceylac — Journaliste, animatrice de « Thé ou café » (France 2)",
+        description: episodeDescriptionOverrides.catherine,
+        thumbnail: "catherine-ceylac.jpg",
+        link: "",
+        pubDate: "2026-09-30"
+      },
+      {
+        episodeNumber: 14,
+        title: "Laurent Perez del Mar — Compositeur de musiques de films",
+        description: episodeDescriptionOverrides.laurent,
+        thumbnail: "laurent-perez-del-mar.jpg",
+        link: "",
+        pubDate: "2026-10-06"
+      },
+      {
+        episodeNumber: 15,
+        title: "Aurélie Merle — Des crimes de guerre aux Jeux olympiques de Paris 2024",
+        description: episodeDescriptionOverrides.aurelie,
+        thumbnail: "aurelie-merle.jpg",
+        link: "https://open.spotify.com/episode/1z1FLqUv0abKb7MlHIcyuJ?si=Rxl3wdu4SASHedGN8vlH3Q",
+        pubDate: "2026-10-13"
+      },
+      {
+        episodeNumber: 16,
+        title: "David Foenkinos — Écrivain",
+        description: episodeDescriptionOverrides.david,
+        thumbnail: "david-foenkinos.jpg",
+        link: "",
+        pubDate: "2026-10-20"
+      },
+      {
+        episodeNumber: 17,
+        title: "Karin Viard — Actrice",
+        description: episodeDescriptionOverrides.karin,
+        thumbnail: "karin-viard.jpg",
+        link: "https://open.spotify.com/episode/2I8xucZsjOna49WrsCglC4?si=iByKaMI6SSu4l8d9VZo6Ew",
+        pubDate: "2026-10-27"
       }
     ];
 
@@ -1355,22 +1279,46 @@
       ["matthias dandois"],
       ["fanny herrero"],
       ["frédérique pons", "frederique pons"],
-      ["jeanne herry"]
+      ["jeanne herry"],
+      ["théo phulpin", "theo phulpin", "gartin 591", "gartin591"],
+      ["catherine ceylac", "ceylac"],
+      ["laurent perez del mar", "perez del mar"],
+      ["aurélie merle", "aurelie merle"],
+      ["david foenkinos", "foenkinos"],
+      ["karin viard", "viard"]
     ];
 
-    const renderEpisodes = (grid, items, feed = {}) => {
+    // Encadré « Dernier épisode » de l'accueil
+    const renderLatest = (slug) => {
+      const data = episodeRegistry.get(slug);
+      const box = document.getElementById("latest");
+      if (!data || !box) return;
+      const { name, role } = splitTitle(data.title);
+      document.getElementById("latest-date").textContent = data.date || `Épisode ${data.number}`;
+      const img = document.getElementById("latest-image");
+      img.src = data.image || "logo.png";
+      img.alt = name;
+      document.getElementById("latest-title").innerHTML =
+        escapeHtml(name) + (role ? `<small>${escapeHtml(role)}</small>` : "");
+      document.getElementById("latest-open").onclick = () => openEpisodeModal(slug);
+      box.hidden = false;
+    };
+
+    const renderEpisodes = (grid, items) => {
       grid.innerHTML = "";
-      [...items]
-        .sort((a, b) => (b.episodeNumber || 0) - (a.episodeNumber || 0))
-        .forEach((item, index) => grid.appendChild(createEpisodeCard(item, index, feed)));
+      episodeRegistry.clear();
+      const sorted = [...items].sort((a, b) => (b.episodeNumber || 0) - (a.episodeNumber || 0));
+      sorted.forEach((item, index) => grid.appendChild(createEpisodeCard(item, index)));
+      if (sorted.length) renderLatest(episodeSlug(cleanText(sorted[0].title || "")));
+      const requestedEpisode = new URL(window.location.href).searchParams.get("episode");
+      if (requestedEpisode && episodeRegistry.has(requestedEpisode)) openEpisodeModal(requestedEpisode, false);
     };
 
     async function loadEpisodesFromRSS() {
       const grid = document.getElementById("episodes-grid");
 
-      // Affiche immédiatement les épisodes locaux : aucun écran de chargement bloqué.
-      // Si le RSS répond ensuite sur le site en ligne, il actualise simplement la liste.
-      renderEpisodes(grid, fallbackEpisodes, {});
+      // Affiche immédiatement les épisodes locaux ; le RSS actualise ensuite la liste si disponible.
+      renderEpisodes(grid, fallbackEpisodes);
 
       try {
         const controller = new AbortController();
@@ -1382,8 +1330,7 @@
         const data = await response.json();
         if (!Array.isArray(data.items)) throw new Error("Flux RSS invalide.");
 
-        // Fusionne le RSS avec les épisodes connus sans perdre nos photos,
-        // descriptions et numéros éditoriaux.
+        // Fusionne le RSS avec les épisodes connus sans perdre photos, descriptions et numéros.
         const orderedKnown = knownEpisodeNames.map((aliases, index) => {
           const fromFeed = data.items.find((item) => {
             const t = normalizeTitle(cleanText(item.title || ""));
@@ -1394,28 +1341,50 @@
             : fallbackEpisodes[index];
         });
 
-        // Les épisodes inconnus trouvés plus tard dans le RSS reçoivent les numéros suivants.
+        // Les nouveaux épisodes du RSS reçoivent les numéros suivants.
         const extras = data.items
           .filter((item) => {
             const t = normalizeTitle(cleanText(item.title || ""));
-            return !knownEpisodeNames.some((aliases) =>
-              aliases.some((name) => t.includes(normalizeTitle(name)))
-            );
+            return !knownEpisodeNames.some((aliases) => aliases.some((name) => t.includes(normalizeTitle(name))));
           })
-          .map((item, index) => ({
-            ...item,
-            episodeNumber: fallbackEpisodes.length + index + 1
-          }));
+          .map((item, index) => ({ ...item, episodeNumber: fallbackEpisodes.length + index + 1 }));
 
-        renderEpisodes(grid, [...orderedKnown, ...extras], data.feed || {});
+        renderEpisodes(grid, [...orderedKnown, ...extras]);
       } catch (error) {
-        console.info("RSS indisponible sur Live Server : affichage local de secours.", error);
-        renderEpisodes(grid, fallbackEpisodes, {});
+        console.info("RSS indisponible : affichage local de secours.", error);
       }
     }
 
+    // Fenêtre épisode
+    document.querySelectorAll("[data-close-modal]").forEach((el) => el.addEventListener("click", closeEpisodeModal));
+    document.addEventListener("keydown", (event) => { if (event.key === "Escape") closeEpisodeModal(); });
+
+    // Menu mobile
+    const menuButton = document.querySelector(".menu-button");
+    const mainNav = document.getElementById("main-nav");
+    const setMenu = (open) => {
+      menuButton.setAttribute("aria-expanded", String(open));
+      mainNav.classList.toggle("is-open", open);
+      menuButton.querySelector(".sr-only").textContent = open ? "Fermer le menu" : "Ouvrir le menu";
+    };
+    menuButton.addEventListener("click", () => setMenu(menuButton.getAttribute("aria-expanded") !== "true"));
+    mainNav.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => setMenu(false)));
+
+    // Copier l'adresse e-mail
+    document.getElementById("copy-mail").addEventListener("click", async (event) => {
+      const btn = event.currentTarget;
+      try {
+        await navigator.clipboard.writeText(CONTACT_EMAIL);
+        btn.textContent = "Adresse copiée ✓";
+        setTimeout(() => (btn.textContent = "Copier l’adresse"), 1600);
+      } catch (_) {
+        window.prompt("Copiez cette adresse :", CONTACT_EMAIL);
+      }
+    });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+
     loadEpisodesFromRSS();
   </script>
-  <script src="script.js"></script>
 </body>
 </html>

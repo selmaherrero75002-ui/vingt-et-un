@@ -210,6 +210,7 @@
     /* Cadrage de la photo de David Foenkinos : on garde le haut (le visage) */
     img[src="david-foenkinos.jpg"] { object-position: 50% 0%; }
     img[src="karin-viard.jpg"] { object-position: 50% 20%; }
+    img[src="felix-radu.jpg"] { object-position: 50% 25%; }
     .latest__body { padding: 20px 18px 22px; }
     .latest__title { margin: 0 0 16px; font-size: 1.15rem; line-height: 1.3; font-weight: 700; }
     .latest__title small { display: block; margin-top: 4px; font-size: .92rem; font-weight: 500; color: var(--muted); }
@@ -572,10 +573,10 @@
 
     <div class="guests" aria-label="Nos invités">
       <div class="guests__track" aria-hidden="true">
-        <span>Karin Viard</span><span>David Foenkinos</span><span>Aurélie Merle</span><span>Laurent Perez del Mar</span><span>Catherine Ceylac</span><span>Jeanne Herry</span><span>Fanny Herrero</span><span>Matthias Dandois</span><span>Mehdi Chaoui</span><span>Gartin 591</span><span>Yzoula</span><span>Simon Bernard</span><span>Maxime Lagarde</span><span>Camille Lorillon</span><span>Juanita Fellag</span><span>Jérôme Delafosse</span>
-        <span>Karin Viard</span><span>David Foenkinos</span><span>Aurélie Merle</span><span>Laurent Perez del Mar</span><span>Catherine Ceylac</span><span>Jeanne Herry</span><span>Fanny Herrero</span><span>Matthias Dandois</span><span>Mehdi Chaoui</span><span>Gartin 591</span><span>Yzoula</span><span>Simon Bernard</span><span>Maxime Lagarde</span><span>Camille Lorillon</span><span>Juanita Fellag</span><span>Jérôme Delafosse</span>
+        <span>Félix Radu</span><span>Karin Viard</span><span>David Foenkinos</span><span>Aurélie Merle</span><span>Laurent Perez del Mar</span><span>Catherine Ceylac</span><span>Jeanne Herry</span><span>Fanny Herrero</span><span>Matthias Dandois</span><span>Mehdi Chaoui</span><span>Gartin 591</span><span>Yzoula</span><span>Simon Bernard</span><span>Maxime Lagarde</span><span>Camille Lorillon</span><span>Juanita Fellag</span><span>Jérôme Delafosse</span>
+        <span>Félix Radu</span><span>Karin Viard</span><span>David Foenkinos</span><span>Aurélie Merle</span><span>Laurent Perez del Mar</span><span>Catherine Ceylac</span><span>Jeanne Herry</span><span>Fanny Herrero</span><span>Matthias Dandois</span><span>Mehdi Chaoui</span><span>Gartin 591</span><span>Yzoula</span><span>Simon Bernard</span><span>Maxime Lagarde</span><span>Camille Lorillon</span><span>Juanita Fellag</span><span>Jérôme Delafosse</span>
       </div>
-      <p class="sr-only">Parmi nos invités : Karin Viard, David Foenkinos, Aurélie Merle, Laurent Perez del Mar, Catherine Ceylac, Jeanne Herry, Fanny Herrero, Matthias Dandois, Mehdi Chaoui, Gartin 591, Yzoula, Simon Bernard, Maxime Lagarde, Camille Lorillon, Juanita Fellag et Jérôme Delafosse.</p>
+      <p class="sr-only">Parmi nos invités : Félix Radu, Karin Viard, David Foenkinos, Aurélie Merle, Laurent Perez del Mar, Catherine Ceylac, Jeanne Herry, Fanny Herrero, Matthias Dandois, Mehdi Chaoui, Gartin 591, Yzoula, Simon Bernard, Maxime Lagarde, Camille Lorillon, Juanita Fellag et Jérôme Delafosse.</p>
     </div>
 
     <!-- PLATEFORMES -->
@@ -868,6 +869,12 @@
         spotify: "https://open.spotify.com/episode/2I8xucZsjOna49WrsCglC4?si=iByKaMI6SSu4l8d9VZo6Ew",
         apple: "https://podcasts.apple.com/fr/podcast/vingt-et-un/id6790472406?i=1000799098369",
         deezer: ""
+      },
+      {
+        match: ["felix radu", "radu"],
+        spotify: "",
+        apple: "",
+        deezer: ""
       }
     ];
 
@@ -929,6 +936,13 @@ Elle revient avec nous sur ces débuts compliqués : les petits boulots pour ten
 Elle évoque aussi le manque de légitimité ressenti en recevant son premier César, son rapport au regard des autres, dont elle se fiche aujourd’hui, et une idée reçue : les acteurs ne s’aiment pas forcément.
 
 🎙️ Une conversation sur la persévérance, les doutes et les chemins que l’on poursuit sans toujours savoir où ils nous mèneront.`,
+      felix: `Chroniqueur, chanteur, interprète, poète… Félix Radu s’est livré dans Vingt et Un sur cette décennie si particulière : la vingtaine. Ces années où l’on subit parfois le poids des attentes de ses proches. Ces années où l’on se sent en décalage avec le reste du monde, où l’on tombe amoureux pour la première fois, où l’on doute de soi et où l’on cherche, progressivement, sa voie.
+
+Cette voie, Félix Radu l’a aujourd’hui trouvée.
+
+En faisant des mots son terrain de jeu, en les maniant avec une sensibilité et une justesse singulières, il est devenu une figure incontournable des réseaux sociaux, touchant toute une génération à travers ses textes. Mais avant de trouver sa place, il a fallu chercher, essayer, se tromper, s’égratigner les genoux, courir plus vite qu’on ne le peut… et surtout apprendre à être soi.
+
+Dans cet épisode, on a parlé d’amour, de confiance en soi, du regard des autres, de l’impact des réseaux sociaux, de ses débuts et de cette drôle de période où l’on est censé devenir adulte sans vraiment savoir comment.`,
     };
 
     // Première phrase affichée sur la carte (le reste est dans « Lire la suite »)
@@ -944,7 +958,8 @@ Elle évoque aussi le manque de légitimité ressenti en recevant son premier C�
       catherine: "Pendant plus de vingt ans à la tête de « Thé ou café » sur France 2, Catherine Ceylac a reçu les plus grands. Elle revient sur sa vingtaine et sur l'art d'écouter.",
       laurent: "Laurent Perez del Mar, compositeur de musiques de films, revient sur sa vocation et sur ce que c'est que mettre en musique les émotions des autres.",
       karin: "Césarisée, saluée par le public comme par la critique, Karin Viard s’était pourtant donné dix ans pour réussir. Elle revient sur une vingtaine aussi exaltante que douloureuse.",
-      david: "À 16 ans, il frôle la mort. À 20 ans, il écrit seul dans sa chambre. Aujourd’hui, David Foenkinos est l’un des auteurs les plus lus de France."
+      david: "À 16 ans, il frôle la mort. À 20 ans, il écrit seul dans sa chambre. Aujourd’hui, David Foenkinos est l’un des auteurs les plus lus de France.",
+      felix: "Chroniqueur, chanteur, interprète, poète… Félix Radu se livre sur la vingtaine : le poids des attentes, le décalage, les premiers amours et la quête de sa voie."
     };
 
     // Clé éditoriale d'un épisode à partir de son titre
@@ -961,6 +976,7 @@ Elle évoque aussi le manque de légitimité ressenti en recevant son premier C�
       if (normalizedTitle.includes("laurent perez del mar") || normalizedTitle.includes("perez del mar")) return "laurent";
       if (normalizedTitle.includes("foenkinos")) return "david";
       if (normalizedTitle.includes("karin viard") || normalizedTitle.includes("viard")) return "karin";
+      if (normalizedTitle.includes("felix radu") || normalizedTitle.includes("radu")) return "felix";
       return "";
     };
 
@@ -972,7 +988,8 @@ Elle évoque aussi le manque de légitimité ressenti en recevant son premier C�
       catherine: "catherine-ceylac.jpg",
       laurent: "laurent-perez-del-mar.jpg",
       david: "david-foenkinos.jpg",
-      karin: "karin-viard.jpg"
+      karin: "karin-viard.jpg",
+      felix: "felix-radu.jpg"
     };
 
     const normalizeTitle = (value = "") =>
@@ -1265,6 +1282,14 @@ Elle évoque aussi le manque de légitimité ressenti en recevant son premier C�
         thumbnail: "karin-viard.jpg",
         link: "https://open.spotify.com/episode/2I8xucZsjOna49WrsCglC4?si=iByKaMI6SSu4l8d9VZo6Ew",
         pubDate: "2026-10-27"
+      },
+      {
+        episodeNumber: 18,
+        title: "Félix Radu — Poète et chroniqueur",
+        description: episodeDescriptionOverrides.felix,
+        thumbnail: "felix-radu.jpg",
+        link: "",
+        pubDate: "2026-11-10"
       }
     ];
 
@@ -1285,7 +1310,8 @@ Elle évoque aussi le manque de légitimité ressenti en recevant son premier C�
       ["laurent perez del mar", "perez del mar"],
       ["aurélie merle", "aurelie merle"],
       ["david foenkinos", "foenkinos"],
-      ["karin viard", "viard"]
+      ["karin viard", "viard"],
+      ["félix radu", "felix radu", "radu"]
     ];
 
     // Encadré « Dernier épisode » de l'accueil

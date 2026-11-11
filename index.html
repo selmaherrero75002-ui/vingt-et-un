@@ -832,7 +832,8 @@
         match: ["théo phulpin", "theo phulpin", "gartin 591", "gartin591"],
         spotify: "https://open.spotify.com/episode/3DbkuIQpEjOGaOm7q8BfNU?si=1b0e6b7ad4b74463",
         apple: "https://podcasts.apple.com/fr/podcast/vingt-et-un/id6790472406?i=1000791264243",
-        deezer: ""
+        deezer: "",
+        youtube: "https://youtu.be/Nagdr-KxTyc?si=leYnn0lU_i2Lie6X"
       },
       {
         match: ["jeanne herry"],
@@ -872,9 +873,10 @@
       },
       {
         match: ["felix radu", "radu"],
-        spotify: "",
-        apple: "",
-        deezer: ""
+        spotify: "https://open.spotify.com/episode/6FnrhawCd5u6c2g0tAwslL?si=nt9_jIhrRbmkIP3Jht2EAQ",
+        apple: "https://podcasts.apple.com/fr/podcast/vingt-et-un/id6790472406?i=1000801034082",
+        deezer: "https://link.deezer.com/s/34VErQuabuBkD93FGrYfh",
+        youtube: "https://youtu.be/33tuRDIssL0?si=pqElvwbeAJsurJ6M"
       }
     ];
 
@@ -1004,7 +1006,7 @@ Dans cet épisode, on a parlé d’amour, de confiance en soi, du regard des aut
         episode.match.some((name) => normalizedTitle.includes(normalizeTitle(name)))
       );
       if (found) {
-        return { spotify: found.spotify || item.link || "", apple: found.apple || "", deezer: found.deezer || "" };
+        return { spotify: found.spotify || item.link || "", apple: found.apple || "", deezer: found.deezer || "", youtube: found.youtube || "" };
       }
       return { spotify: item.link || platformLinks.spotify, apple: platformLinks.apple, deezer: platformLinks.deezer };
     };
@@ -1041,15 +1043,16 @@ Dans cet épisode, on a parlé d’amour, de confiance en soi, du regard des aut
     const icons = {
       spotify: `<svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="#1ED760"/><path d="M17 24.5c10.8-3.1 23.3-2.5 32.7 2" fill="none" stroke="#111" stroke-width="5" stroke-linecap="round"/><path d="M19.5 33c9.1-2.3 19.7-1.8 27.9 1.7" fill="none" stroke="#111" stroke-width="4.4" stroke-linecap="round"/><path d="M22 41c7.3-1.7 15.5-1.2 22 1.4" fill="none" stroke="#111" stroke-width="3.8" stroke-linecap="round"/></svg>`,
       apple: `<svg viewBox="0 0 64 64" aria-hidden="true"><rect x="2" y="2" width="60" height="60" rx="15" fill="#8E44F7"/><circle cx="32" cy="28" r="6" fill="#fff"/><circle cx="32" cy="28" r="13" fill="none" stroke="#fff" stroke-width="3"/><circle cx="32" cy="28" r="20" fill="none" stroke="#fff" stroke-width="3"/><path d="M28 38h8l-1.7 13h-4.6z" fill="#fff"/></svg>`,
-      deezer: `<svg viewBox="0 0 64 64" aria-hidden="true"><rect x="5" y="38" width="9" height="8" rx="1" fill="#A238FF"/><rect x="16" y="32" width="9" height="14" rx="1" fill="#5A42FF"/><rect x="27" y="25" width="9" height="21" rx="1" fill="#16B8FF"/><rect x="38" y="18" width="9" height="28" rx="1" fill="#FF2D8D"/><rect x="49" y="11" width="9" height="35" rx="1" fill="#FFB000"/></svg>`
+      deezer: `<svg viewBox="0 0 64 64" aria-hidden="true"><rect x="5" y="38" width="9" height="8" rx="1" fill="#A238FF"/><rect x="16" y="32" width="9" height="14" rx="1" fill="#5A42FF"/><rect x="27" y="25" width="9" height="21" rx="1" fill="#16B8FF"/><rect x="38" y="18" width="9" height="28" rx="1" fill="#FF2D8D"/><rect x="49" y="11" width="9" height="35" rx="1" fill="#FFB000"/></svg>`,
+      youtube: `<svg viewBox="0 0 64 64" aria-hidden="true"><rect x="4" y="12" width="56" height="40" rx="12" fill="#FF0000"/><path d="M27 23l16 9-16 9z" fill="#fff"/></svg>`
     };
-    const platformLabels = { spotify: "Spotify", apple: "Apple Podcasts", deezer: "Deezer" };
+    const platformLabels = { spotify: "Spotify", apple: "Apple Podcasts", deezer: "Deezer", youtube: "YouTube" };
 
     const pillsHtml = (links, title) =>
-      ["spotify", "apple", "deezer"]
+      ["spotify", "apple", "deezer", "youtube"]
         .filter((type) => links[type])
         .map((type) =>
-          `<a class="pill" href="${escapeHtml(links[type])}" target="_blank" rel="noopener noreferrer" aria-label="Écouter ${escapeHtml(title)} sur ${platformLabels[type]}">${icons[type]}<span>${platformLabels[type]}</span></a>`
+          `<a class="pill" href="${escapeHtml(links[type])}" target="_blank" rel="noopener noreferrer" aria-label="${type === "youtube" ? "Regarder" : "Écouter"} ${escapeHtml(title)} sur ${platformLabels[type]}">${icons[type]}<span>${platformLabels[type]}</span></a>`
         ).join("");
 
     const episodeRegistry = new Map();
@@ -1083,7 +1086,8 @@ Dans cet épisode, on a parlé d’amour, de confiance en soi, du regard des aut
       const links = {
         spotify: data.links.spotify || platformLinks.spotify,
         apple: data.links.apple || platformLinks.apple,
-        deezer: data.links.deezer || platformLinks.deezer
+        deezer: data.links.deezer || platformLinks.deezer,
+        youtube: data.links.youtube || ""
       };
       document.getElementById("episode-modal-platforms").innerHTML =
         pillsHtml(links, data.title) +
@@ -1288,7 +1292,7 @@ Dans cet épisode, on a parlé d’amour, de confiance en soi, du regard des aut
         title: "Félix Radu — Poète et chroniqueur",
         description: episodeDescriptionOverrides.felix,
         thumbnail: "felix-radu.jpg",
-        link: "",
+        link: "https://open.spotify.com/episode/6FnrhawCd5u6c2g0tAwslL?si=nt9_jIhrRbmkIP3Jht2EAQ",
         pubDate: "2026-11-10"
       }
     ];
